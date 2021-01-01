@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="DBConnectionStringConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchedulerConfigDB.cs" />
+    <Compile Include="SchedulerConfigQuery.cs" />
     <Compile Include="User\UseManageCMD.cs" />
     <Compile Include="User\UseManageQuery.cs" />
     <Compile Include="User\UserInfoQuery.cs" />
@@ -54,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JMGG.ManageProject.Common\JMGG.ManageProject.Common.csproj">
+      <Project>{ADD1428A-D1DF-4BF3-9EE9-5AA1365A41F0}</Project>
+      <Name>JMGG.ManageProject.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JMGG.ManageProject.Model\JMGG.ManageProject.Model.csproj">
       <Project>{fe868203-079c-4977-8306-59f5127c2296}</Project>
       <Name>JMGG.ManageProject.Model</Name>

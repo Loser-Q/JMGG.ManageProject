@@ -1,0 +1,554 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JOB配置</title>
+    <link href="~/Scripts/easyui/easyui/themes/bootstrap/easyui.css" rel="stylesheet" />
+    <link href="~/Scripts/easyui/easyui/themes/icon.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery/jquery-1.10.2.min.js"></script>*@
+    <script src="~/Scripts/jquery/jquery-1.8.1.min.js"></script>
+    <script src="~/Scripts/jquery-template/jquery.tmpl.min.js"></script>
+    <script src="~/Scripts/easyui/easyui/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui/easyui/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/easyui/easyui/jquery.easyui.min.extend.js"></script>
+    <script src="~/Scripts/easyui/easyui/datagrid-detailview.js"></script>
+
+    <style type="text/css">
+        .fitem {
+            margin-bottom: 8px;
+        }
+
+            .fitem label {
+                display: inline-block;
+                width: 136px;
+            }
+
+        .logClass {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" fit="true" striped="true" remotesort="false"
+           pagination="true" toolbar="#tool" showfooter="true" title="Job设置">
+        <thead>
+            <tr>
+                <th field="ID" width="10" align="left" checkbox="true">主键</th>
+                <th field="JobGroup" width="50" sortable="true" align="left">Job所属组别</th>
+                <th field="JobName" width="50" sortable="true" align="left" data-options="formatter:jobNameFormate">Job名称</th>
+                <th field="RequestType" width="45" sortable="true" align="left" data-options="formatter:formatterType">请求方式</th>
+                <th field="RequestUrl" width="120" sortable="true" align="left" data-options="formatter:urlFormatter">请求URL</th>
+                <th field="CronTab" width="80" sortable="true" align="left">Corn表达式</th>
+                <th field="JobRemark" width="60" sortable="true" align="left" data-options="formatter:remarkFormatter">Job备注</th>
+                <th field="CreateTime" width="80" sortable="true" align="left">创建时间</th>
+                <th field="CreateUser" width="50" sortable="true" align="left">创建人</th>
+                <th field="StartTime" width="80" sortable="true" align="left">开始时间</th>
+                <th field="EndTime" width="80" sortable="true" align="left">结束时间</th>
+                <th field="IsEnable" width="50" sortable="true" align="left" data-options="formatter:formatterEnable">是否启用</th>
+                <th field="" width="60" sortable="true" align="center" data-options="formatter:viewReportFormatter">查看日志</th>
+            </tr>
+        </thead>
+    </table>
+
+    <div id="tool" style="padding: 5px;">
+        <form onsubmit="return false;">
+            <table>
+                <tr>
+                    <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" id="btn_add">新增</a></td>
+                    <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" id="btn_edit">编辑</a></td>
+                    <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-tip" plain="true" id="btn_enable" onclick="setEnable(1)">批量启用Job</a></td>
+                    <td><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" id="btn_disable" onclick="setEnable(0)">批量禁用Job</a></td>
+                </tr>
+            </table>
+            <div style="text-align: left; margin-top: 3px; padding-left: 10px;">
+                <div>
+                    Job所属组别:<input type="text" id="job_group" style="width: 100px;" class="easyui-textbox" />
+                    Job名称:<input type="text" id="job_name" style="width: 100px;" class="easyui-textbox" />
+                    请求方式:<select id="job_requestType" style="width: 70px;" class="easyui-combobox">
+                        <option value="-1">全部</option>
+                        <option value="1">get</option>
+                        <option value="2">post</option>
+                    </select>
+                    启用状态:
+                    <select id="job_isEnable" style="width: 70px;" class="easyui-combobox">
+                        <option value="-1">全部</option>
+                        <option value="0">未启用</option>
+                        <option value="1">启用</option>
+                    </select>
+                    开始时间:
+                    <input class="easyui-datetimebox" value="" id="job_startTime" style="width: 145px" />
+                    结束时间:<input class="easyui-datetimebox" value="" id="job_endTime" style="width: 145px" />
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="query()">查询</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="dlg" class="easyui-dialog" style="width: 430px; padding: 10px 20px"
+         closed="true" buttons="#dlg-buttons" modal="true">
+        <form id="frm_ap" method="post" style="padding: 10px 30px">
+            <div class="fitem">
+                <label>Job所属组别：</label>
+                <input id="dp_jobGroup" name="JobGroup" type="text" class="easyui-textbox" style="height: 20px;" maxlength="100" data-options="required:true" />
+            </div>
+            <div class="fitem">
+                <label>Job名称：</label>
+                <input id="dp_jobName" name="JobName" type="text" class="easyui-textbox" style="height: 20px;" maxlength="100" data-options="required:true" />
+            </div>
+            <div class="fitem">
+                <label>请求方式：</label>
+                <select id="dp_requestType" name="RequestType" id="" style="width: 100px;" class="easyui-combobox" data-options="required:true">
+                    <option value="1">get</option>
+                    <option value="2">post</option>
+                </select>
+            </div>
+            <div class="fitem">
+                <label>请求URL：</label>
+                <input id="dp_requestUrl" name="RequestUrl" type="text" class="easyui-textbox" style="height: 20px;" maxlength="200" data-options="required:true" />
+            </div>
+            <div class="fitem">
+                <label>Corn表达式：</label>
+                <input id="dp_cronTab" name="CronTab" type="text" class="easyui-textbox" style="height: 20px;" maxlength="200" data-options="required:true" />
+            </div>
+            <div class="fitem">
+                <label>Job备注：</label>
+                <input id="dp_jobRemark" name="JobRemark" data-options="multiline:true" type="text" class="easyui-textbox" style="width: 170px; height: 90px" maxlength="200" />
+            </div>
+
+            <div class="fitem">
+                <label>开始时间：</label>
+                <input id="dp_strartTime" class="easyui-datetimebox" name="StartTime"
+                       data-options="required:true" style="width: 145px" />
+            </div>
+            <div class="fitem">
+                <label>结束时间：</label>
+                <input id="dp_endTime" class="easyui-datetimebox" name="EndTime" style="height: 20px; width: 145px" data-options="required:true" />
+            </div>
+        </form>
+    </div>
+
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" id="btn_save">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+    </div>
+
+
+    <div id="dlRemark" class="easyui-dialog" style="width: 350px; padding: 10px 20px"
+         closed="true" modal="true">
+    </div>
+
+
+    <div id="logonWindows" class="easyui-window" title="登录" data-options="modal:true,draggable:false,closable:false,resizable:true,minimizable:false,maximizable:false,collapsible:false,shadow:true " style="width: 350px; height: 160px; padding-top: 30px;">
+        <div class="logClass">
+            <label>请输入管理员密码：</label>
+            <input id="_logPwd" type="password" class="easyui-textbox" style="height: 20px;" maxlength="100" />
+        </div>
+        <div style="padding-top: 25px; text-align: right;">
+            <a style="margin-right: 20px;" href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" id="_lobSave" onclick="logSave()">提交</a>
+        </div>
+    </div>
+
+
+
+    <div id="win" class="easyui-window" title="日志查询" style="width: 800px; height: 440px" data-options="modal:true,closed:true,closable:true,maximizable:true">
+        <table id="dgReport" class="easyui-datagrid" fit="true" singleselect="true" remotesort="false"
+               rownumbers="true" striped="true" pagination="true" showfooter="true" toolbar="#reportTool" fitcolumns="true">
+            <thead>
+                <tr>
+                    <th data-options="field:'ReturnMsg',width:260,align:'left'">返回结果</th>
+                    <th data-options="field:'CreateTime',width:80,align:'left',sortable:'true'">时间</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="reportTool">
+        <form onsubmit="return false;">
+            <div style="padding: 5px;">
+                <div>
+                    开始时间:
+                    <input id="r_starttime" class="easyui-datetimebox" name="StartTime"
+                           data-options="required:true" style="width: 145px" />
+                    结束时间:
+                    <input id="r_endtime" class="easyui-datetimebox" name="StartTime"
+                           data-options="required:true" style="width: 145px" />
+                    返回状态：
+                    <select id="r_status" style="width: 80px;" class="easyui-combobox">
+                        <option value="-1">全部</option>
+                        <option value="0">成功</option>
+                        <option value="1">失败</option>
+                        <option value="2">异常</option>
+                    </select>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="queryR()">查询</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/html" id="template1">
+        <div style="max-width: 680px;">
+            <table>
+                <tr>
+                    <td>返回数据:</td>
+                    <td>
+                        <textarea class="textarea" data-options="multiline:true" style="width: 670px; height: 100px; background-color: black; color: lime;">${ReturnMsg}</textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var UserName = '<%=UserName%>';
+
+        $(function () {
+            //显示登录窗口
+            $('#logonWindows').window('open');
+
+
+            //设置时间默认值
+            var currentDay = new Date();
+            var beforeDay = new Date(new Date().getTime() - (30 * (1000 * 60 * 60 * 24)));
+
+            var start = format(beforeDay, 'yyyy-MM-dd HH:mm:ss', 0);
+            var end = format(currentDay, 'yyyy-MM-dd HH:mm:ss', 0);
+            $('#job_startTime').datetimebox('setValue', start);
+            $('#job_endTime').datetimebox('setValue', end);
+
+            var selRow;
+            var frm = $('#frm_ap');
+
+            //新增
+            $('#btn_add').click(function () {
+                $("#dp_jobGroup").textbox({ disabled: false });
+                $("#dp_jobName").textbox({ disabled: false });
+                $('#dlg').dialog('open').dialog('setTitle', '新增');
+                frm.form('clear');
+                frm.find('input:eq(0)').focus();
+
+                var dp_endtime = format(new Date(), 'yyyy-MM-dd HH:mm:ss', 10);
+                $('#dp_endTime').datetimebox('setValue', dp_endtime);
+                selRow = null;
+            });
+
+            //编辑
+            $('#btn_edit').click(function () {
+                selRow = $('#dg').datagrid('getSelected');
+                if (selRow) {
+                    $("#dp_jobGroup").textbox({ disabled: true });
+                    $("#dp_jobName").textbox({ disabled: true });
+                    $('#dlg').dialog('open').dialog('setTitle', '编辑');
+                    frm.form('load', selRow);
+                    //设置时间默认值
+                    var dateStart = selRow.StartTime;
+                    var dateEnd = selRow.EndTime;
+                    if (selRow.EndTime.indexOf("/") > 0) {
+                        dateStart = dateStart.replace(/\//g, "-");
+                        dateEnd = dateEnd.replace(/\//g, "-");
+                    }
+                    $('#dp_strartTime').datetimebox('setValue', dateStart);
+                    $('#dp_endTime').datetimebox('setValue', dateEnd);
+                }
+            });
+
+            //保存
+            $('#btn_save').click(function () {
+                debugger;
+                frm.form('submit', {
+                    url: '/JobSchedluer/AddOrUpdateSchedulerConfig',
+                    onSubmit: function (param) {
+                        //获取新增参数
+                        var params = {
+                            ID: selRow == null ? 0 : selRow.ID,
+                            IsEnable: selRow == null ? 0 : selRow.IsEnable,
+                            JobGroup: $("#dp_jobGroup").textbox("getValue"),
+                            JobName: $("#dp_jobName").textbox("getValue"),
+                            RequestType: $('#dp_requestType').combobox('getValue'),
+                            RequestUrl: $("#dp_requestUrl").textbox("getValue"),
+                            CronTab: $("#dp_cronTab").textbox("getValue"),
+                            JobRemark: $("#dp_jobRemark").textbox("getValue"),
+                            StartTime: $('#dp_strartTime').datetimebox('getValue'),
+                            EndTime: $('#dp_endTime').datetimebox('getValue'),
+                            CreateUser: UserName,
+                            LastUpdateUser: UserName
+                        };
+                        param.params = JSON.stringify(params);
+                        return $(this).form('validate');
+                    },
+                    success: function (result) {
+                        debugger;
+                        var data = eval('(' + result + ')');
+                        if (data.status == "true") {
+                            $.messager.alert("提示", "保存成功！", 'info', function () {
+                                query();
+                            });
+                            $('#dlg').dialog('close');
+                        } else {
+                            //JobName重复
+                            if (data.code == 1) {
+                                $.messager.alert('提示', 'Job名称不能重复,请重新命名！', 'error');
+                            } else {
+                                $.messager.alert('提示', '保存失败，请稍后再试！', 'error');
+                            }
+
+                        }
+                    }
+                });
+            });
+        })
+
+        //登录提交
+        function logSave() {
+            var _logPwd = $("#_logPwd").val();
+            if (_logPwd == "") {
+                return;
+            }
+            $.post("/JobSchedluer/ValiationPwd", { password: _logPwd }, function (msg) {
+                if (msg != null) {
+                    var data = eval('(' + msg + ')');
+                    if (data.status == "true") {
+                        $('#logonWindows').window('close');
+                    } else {
+                        $.messager.alert('Warning', '密码错误，请重新输入！');
+                    }
+                } else {
+                    $.messager.alert('Warning', '密码错误，请重新输入！');
+                }
+            });
+        }
+
+        //批量启用|禁用
+        function setEnable(type) {
+            var selectRows = $('#dg').datagrid('getSelections');
+            if (selectRows.length == 0) {
+                $.messager.alert("提示", "请选择需操作的Job", 'info');
+                return;
+            }
+
+            var ids = "";
+            for (var i = 0; i < selectRows.length; i++) {
+                var r = selectRows[i];
+                ids += $.trim(r.ID) + ",";
+            }
+            if (ids != "") {
+                if (ids.lastIndexOf(",") > 0) {
+                    ids = ids.substr(0, ids.lastIndexOf(","));
+                }
+            }
+            var msg = type == 0 ? "禁用" : "启用";
+            $.messager.confirm("提示", "是否确认" + msg + "选中Job", function (r) {
+                if (r) {
+                    $.post('/JobSchedluer/UpdateSchedulerConfigStatus', { Ids: ids, IsEnable: type, Name: UserName }, function (result) {
+                        if (result != null) {
+                            var data = result;
+                            if (data.status == "true") {
+                                $.messager.alert("提示", msg + "成功", 'info', function () {
+                                    query();
+                                });
+                            } else {
+                                $.messager.alert("提示", msg + "失败，请稍后再试!", 'error');
+                            }
+                        }
+                    }, 'json');
+                }
+            });
+        }
+
+        //获取查询参数
+        function getParam() {
+            var job_group = $.trim($("#job_group").textbox("getValue"));
+            var job_name = $.trim($('#job_name').textbox('getValue'));
+            var job_requestType = $('#job_requestType').combobox('getValue');
+            var job_isEnable = $('#job_isEnable').combobox('getValue');
+            var job_startTime = $('#job_startTime').datetimebox('getValue');
+            var job_endTime = $('#job_endTime').datetimebox('getValue');
+            var params = {
+                JobGroup: job_group,
+                JobName: job_name,
+                RequestType: job_requestType,
+                IsEnable: job_isEnable,
+                StartTime: job_startTime,
+                EndTime: job_endTime
+            };
+            return params;
+        }
+
+        function initGrid() {
+            $('#dg').datagrid({
+                url: '/JobSchedluer/QuerySchedluer',
+                onBeforeLoad: function (param) {
+                    param.params = JSON.stringify(getParam());
+                    return true;
+                },
+                rownumbers: true,
+                singleSelect: false,
+                fitColumns: true,
+                collapsible: true,
+                pagesize: 20,
+                pageList: [20, 50, 100, 500, 1000],
+                detailFormatter: function (index, row) {
+                    return '<div class="ddv" style="padding:5px 0"></div>';
+                }
+            });
+        }
+
+        //格式化请求方式
+        function formatterType(val) {
+            if (isNaN(val)) return val;
+            var requestType = "";
+            if (val == 1) {
+                requestType = "get";
+            } else if (val == 2) {
+                requestType = "post";
+            }
+            var result = '<span>' + requestType + '</span>'
+            return result;
+        }
+
+        //格式化启用状态
+        function formatterEnable(val) {
+            if (isNaN(val)) return val;
+            var requestType = "";
+            if (val == 0) {
+                requestType = "未启用";
+            } else if (val == 1) {
+                requestType = "启用";
+            }
+            var result = '<span>' + requestType + '</span>'
+            return result;
+        }
+
+        //查询
+        function query() {
+            // $('#dg').datagrid('reload');
+            initGrid();
+        }
+
+        //格式化备注信息
+        function remarkFormatter(value, row, index) {
+            var para = "'" + row.JobRemark + "'";
+            var rowData = row.JobRemark.length > 6 ? row.JobRemark.substr(0, 6) + "...." : row.JobRemark;
+
+            var ret = '<a title=' + para + ' href="javascript:viewRemark(' + para + ',2)">' + rowData + '</a>';
+            return ret;
+        }
+
+        //格式化URL信息
+        function urlFormatter(value, row, index) {
+            var para = "'" + row.RequestUrl + "'";
+            var ret = "<a  href=\"#\"  title=\"" + row.RequestUrl + "\" class=\"easyui-tooltip\" style=\"color:#333;text-decoration:none;\" >" + row.RequestUrl + "</a>";
+            return ret;
+        }
+
+        function jobNameFormate(value, row, index) {
+            var msg = "<div title=\"" + row.JobName + "\" style=\"cursor:pointer;\">" + row.JobName + "</div>";
+            return msg;
+        }
+
+        function viewRemark(para, type) {
+            $("#dlRemark").html(para);
+            var msg = "信息";
+            if (type == 1)
+                msg = "请求URL";
+            else if (type == 2)
+                msg = "备注";
+            $('#dlRemark').dialog('open').dialog('setTitle', msg);
+        }
+
+        function viewReportFormatter(value, row, index) {
+            var para = "'" + row.JobName + "'";
+            var ret = '<a  href="javascript:viewReport(' + para + ')">查看日志</a>';
+            return ret;
+        }
+        //格式化时间
+        var format = function (time, format, addyear) {
+            var t = new Date(time);
+            var tf = function (i) { return (i < 10 ? '0' : '') + i };
+            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                switch (a) {
+                    case 'yyyy':
+                        return addyear > 0 ? (parseInt(tf(t.getFullYear())) + addyear) : tf(t.getFullYear());
+                        break;
+                    case 'MM':
+                        return tf(t.getMonth() + 1);
+                        break;
+                    case 'mm':
+                        return tf(t.getMinutes());
+                        break;
+                    case 'dd':
+                        return tf(t.getDate());
+                        break;
+                    case 'HH':
+                        return tf(t.getHours());
+                        break;
+                    case 'ss':
+                        return tf(t.getSeconds());
+                        break;
+                }
+            })
+        }
+
+        //查看日志
+        function viewReport(jobName) {
+            //设置时间默认值
+            var currentDay = new Date();
+            var beforeDay = new Date(new Date().getTime() - (3 * (1000 * 60 * 60 * 24)));
+
+            var start = format(beforeDay, 'yyyy-MM-dd HH:mm:ss', 0);
+            var end = format(currentDay, 'yyyy-MM-dd HH:mm:ss', 0);
+            $('#r_starttime').datetimebox('setValue', start);
+            $('#r_endtime').datetimebox('setValue', end);
+
+            $("#dgReport").datagrid({
+                url: '/JobSchedluer/QueryLogSchedluer',
+                onBeforeLoad: function (param) {
+                    var params = {
+                        JobName: $.trim(jobName),
+                        StartTime: $('#r_starttime').datetimebox('getValue'),
+                        EndTime: $('#r_endtime').datetimebox('getValue'),
+                        Status: $('#r_status').combobox('getValue')
+                    };
+                    param.params = JSON.stringify(params);
+                    return true;
+                },
+                rownumbers: true,
+                singleSelect: false,
+                fitColumns: true,
+                collapsible: true,
+                pagesize: 20,
+                pageList: [20, 50, 100, 500, 1000],
+                detailFormatter: function (index, row) {
+                    return '<div class="ddv" style="padding:5px 0"></div>';
+                },
+                view: detailview,
+                onExpandRow: function (index, row) {
+                    var ddv = $(this).datagrid('getRowDetail', index).find('div.ddv');
+                    ddv.panel({
+                        border: false,
+                        cache: false,
+                        content: $("#template1").tmpl(row),
+                        fit: true,
+                        onLoad: function () {
+                            $('#dgReport').datagrid('fixDetailRowHeight', index);
+                        }
+                    });
+                    $('#dgReport').datagrid('fixDetailRowHeight', index);
+                }
+            });
+            $('#win').window('open');
+        }
+
+        //查询
+        function queryR() {
+            $('#dgReport').datagrid('reload');
+        }
+    </script>
+</body>
+</html>

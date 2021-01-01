@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JMGG.ManageProject.Common",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JMGG.ManageProject.DataAccess", "JMGG.ManageProject.DataAccess\JMGG.ManageProject.DataAccess.csproj", "{2DAB9012-B28B-4E65-ACE2-C15954844D04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JMGG.ManageProject.Job", "JMGG.ManageProject.Job\JMGG.ManageProject.Job.csproj", "{06FD0ACF-B3AA-4F90-836B-90CD8D656D0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2DAB9012-B28B-4E65-ACE2-C15954844D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DAB9012-B28B-4E65-ACE2-C15954844D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DAB9012-B28B-4E65-ACE2-C15954844D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06FD0ACF-B3AA-4F90-836B-90CD8D656D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06FD0ACF-B3AA-4F90-836B-90CD8D656D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06FD0ACF-B3AA-4F90-836B-90CD8D656D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06FD0ACF-B3AA-4F90-836B-90CD8D656D0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

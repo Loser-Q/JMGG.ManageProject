@@ -44,6 +44,9 @@
     <Compile Include="AdvertisingPlanEntity.cs" />
     <Compile Include="BaseResponse.cs" />
     <Compile Include="FinanceInfoEntity.cs" />
+    <Compile Include="Job\SchedulerConfigModel.cs" />
+    <Compile Include="Job\SchedulerLogModel.cs" />
+    <Compile Include="Job\SchedulerRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourceMaterialEntity.cs" />
     <Compile Include="User\UseManageEntity.cs" />
