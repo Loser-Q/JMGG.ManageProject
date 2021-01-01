@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceQuery.cs" />
+    <Compile Include="BasicInfo\BasicInfoQuery.cs" />
     <Compile Include="DBConnectionStringConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfigDB.cs" />
@@ -66,5 +67,6 @@
       <Name>JMGG.ManageProject.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
