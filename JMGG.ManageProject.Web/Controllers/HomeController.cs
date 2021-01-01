@@ -1,4 +1,6 @@
-﻿using JMGG.ManageProject.Common;
+﻿using JMGG.ManageProject.Business;
+using JMGG.ManageProject.Common;
+using JMGG.ManageProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,9 +14,14 @@ namespace JMGG.ManageProject.Web.Controllers
     {
         private string AdminAccount = ConfigurationManager.AppSettings["AdminAccount"];
 
+        private AccountBalanceLogic balanceLogic = new AccountBalanceLogic();
+
         public ActionResult Index()
         {
             var isAdmin = false;
+            var balanceEntity = new AccountBalanceEntity();
+            balanceEntity.NewAccountConsumeBalance = "0.00";
+            balanceEntity.NewAccountTotalBalance = "0.00";
             if (base.UserInfo != null)
             {
                 ViewBag.CompanyName = base.UserInfo.CompanyName;
@@ -26,9 +33,17 @@ namespace JMGG.ManageProject.Web.Controllers
                     isAdmin = true;
                     return Redirect("/UserManage/Index");
                 }
+                balanceEntity = balanceLogic.QueryBalanceByUserId(new Model.AccountBalanceEntity { BusinessId = base.UserInfo.BusinessID, UserName = base.UserInfo.UserName });
+            }
+            if (balanceEntity == null)
+            {
+                balanceEntity = new AccountBalanceEntity();
+                balanceEntity.NewAccountConsumeBalance = "0.00";
+                balanceEntity.NewAccountTotalBalance = "0.00";
             }
             ViewBag.IsAdmin = isAdmin;
-            return View();
+
+            return View(balanceEntity);
         }
     }
 }

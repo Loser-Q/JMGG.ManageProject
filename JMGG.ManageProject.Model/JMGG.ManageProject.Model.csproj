@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountBalanceEntity.cs" />
     <Compile Include="AdvertisingPlanEntity.cs" />
     <Compile Include="BaseResponse.cs" />
     <Compile Include="FinanceInfoEntity.cs" />

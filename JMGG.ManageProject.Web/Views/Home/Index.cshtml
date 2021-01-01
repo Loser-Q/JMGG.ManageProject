@@ -1,4 +1,6 @@
-﻿@{
+﻿@using JMGG.ManageProject.Model
+@model AccountBalanceEntity
+@{
     ViewBag.Title = "首页";
     ViewBag.UserLoginName = ViewBag.CompanyName + "[ID:" + ViewBag.BussinID + "]";
 }
@@ -25,13 +27,13 @@
                         <tr>
                             <th>
                                 账户总余额(元)<br>
-                                0.00
+                                @Model.NewAccountTotalBalance
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 今日账户消耗(元)<br>
-                                0.00
+                                @Model.NewAccountConsumeBalance
                             </th>
                         </tr>
                         <tr>
