@@ -13,7 +13,8 @@ namespace JMGG.ManageProject.Web.Controllers
 {
     public class LoginController : Controller
     {
-        private static UserLogic userLogic = new UserLogic();
+        //private static UserLogic userLogic = new UserLogic();
+        private static UserManageLogic userManageLogic = new UserManageLogic();
         //加密解密key
         private static string encryptKey = ConfigurationManager.AppSettings["EncryptKey"];
 
@@ -34,10 +35,10 @@ namespace JMGG.ManageProject.Web.Controllers
             {
                 return Json(new { result = false, msg = "未获取到登录信息，请联系管理员处理!" });
             }
-            var userInfo = userLogic.QueryUserInfoByAccount(new ManageProject.Model.User.UserInfo
+            var userInfo = userManageLogic.QueryUserByPassword(new UseManageRequest
             {
-                Mobile = loginUsername,
-                Password = loginPassword
+                UserName = loginUsername,
+                PassWord = loginPassword
             });
             if (userInfo != null)
             {
@@ -49,6 +50,16 @@ namespace JMGG.ManageProject.Web.Controllers
             {
                 return Json(new { result = false, msg = "账号密码不正确，请重新输入" });
             }
+        }
+
+        public ActionResult LoginOut()
+        {
+            Session["Login"] = null;
+            HttpCookie Cookie = Request.Cookies["LoginYSYD"];
+            Cookie.Expires = DateTime.Now.AddDays(-1);//设置过期时间
+            Response.Cookies.Add(Cookie);//响应一个Cookies
+
+            return Redirect("/Login/Index");
         }
     }
 }

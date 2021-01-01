@@ -16,9 +16,9 @@ namespace JMGG.ManageProject.DataAccess.User
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tblUserManage (");
-            strSql.Append("BussinessID,UserName,PassWord,CreateTime,CreateUser,IsDelete)");
+            strSql.Append("BussinessID,UserName,PassWord,CreateTime,CreateUser,IsDelete,CompanyName)");
             strSql.Append(" values (");
-            strSql.Append("@BussinessID,@UserName,@PassWord,@CreateTime,@CreateUser,@IsDelete)");
+            strSql.Append("@BussinessID,@UserName,@PassWord,@CreateTime,@CreateUser,@IsDelete,@CompanyName)");
             strSql.Append(";select @@IDENTITY");
 
             using (IDbConnection connection = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))

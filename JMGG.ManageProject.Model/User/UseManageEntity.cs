@@ -28,6 +28,12 @@ namespace JMGG.ManageProject.Model.User
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }
+
+        public string CreateTimeStr { get { return CreateTime.ToString("yyyy-MM-dd HH:mm:ss"); } }
+        /// <summary>
+        /// 公司名称
+        /// </summary>
+        public string CompanyName { get; set; }
         /// <summary>
         /// 创建人
         /// </summary>
@@ -48,6 +54,8 @@ namespace JMGG.ManageProject.Model.User
         public string BussinessID { get; set; }
 
         public string UserName { get; set; }
+
+        public string PassWord { get; set; }
 
         public int PageIndex { get; set; }
 

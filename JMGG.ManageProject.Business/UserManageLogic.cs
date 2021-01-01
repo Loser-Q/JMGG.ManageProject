@@ -22,7 +22,7 @@ namespace JMGG.ManageProject.Business
             if (pageList != null && pageList.Count > 0)
             {
                 page.count = total;
-                page.data = pageList;
+                page.data = pageList.Where(p => p.UserName != "admin").ToList();
                 return page;
             }
             return page;
@@ -41,6 +41,11 @@ namespace JMGG.ManageProject.Business
                 result = res,
                 msg = res ? "成功" : "操作失败"
             };
+        }
+
+        public UseManageEntity QueryUserByPassword(UseManageRequest request)
+        {
+            return userManageQuery.QueryUserByPassword(request);
         }
 
         public bool DeleteUser(List<int> ids)

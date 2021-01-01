@@ -18,6 +18,7 @@ namespace JMGG.ManageProject.Web.Controllers
         // GET: UserManage
         public ActionResult Index()
         {
+            ViewBag.IsAdmin = true;
             return View("~/Views/UserManage/UserManage.cshtml");
         }
 
@@ -93,7 +94,7 @@ namespace JMGG.ManageProject.Web.Controllers
                 return Json(new BaseResponse { result = false, msg = "请求参数不能为空" });
 
             var userInfo = userMangeLogic.DeleteUser(param.Split(',').Select(p => Convert.ToInt32(p)).ToList());
-            return Json(userInfo);
+            return Json(new BaseResponse { result = userInfo, msg = userInfo ? "删除成功" : "删除失败" });
         }
     }
 }

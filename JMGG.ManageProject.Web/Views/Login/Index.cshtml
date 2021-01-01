@@ -291,6 +291,7 @@
                             window.location.href = '/Home/Index';
                         } else {
                             layer.alert(data.msg);
+                            $('#loginBtn').val("登录");
                         }
                     },
                     error: function () {

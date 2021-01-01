@@ -57,10 +57,19 @@ namespace JMGG.ManageProject.DataAccess.User
 
         public UseManageEntity QueryUserById(UseManageRequest request)
         {
-            string sql = "select [Id],[BussinessID],[UserName],[PassWord],[CreateTime],[CreateUser],[IsDelete] from dbo.tblUserManage where BussinessID = @BussinessID and UserName = @UserName and IsDelete=0 ";
+            string sql = "select [Id],[BussinessID],[UserName],[PassWord],[CreateTime],[CreateUser],[IsDelete],CompanyName from dbo.tblUserManage where BussinessID = @BussinessID and UserName = @UserName and IsDelete=0 ";
             using (IDbConnection conn = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))
             {
                  return conn.Query<UseManageEntity>(sql, request).FirstOrDefault();
+            }
+        }
+
+        public UseManageEntity QueryUserByPassword(UseManageRequest request)
+        {
+            string sql = "select [Id],[BussinessID],[UserName],[PassWord],[CreateTime],[CreateUser],[IsDelete],CompanyName from dbo.tblUserManage where PassWord = @PassWord and UserName = @UserName and IsDelete=0 ";
+            using (IDbConnection conn = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))
+            {
+                return conn.Query<UseManageEntity>(sql, request).FirstOrDefault();
             }
         }
     }

@@ -35,32 +35,45 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">首页</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="/Home/Index">首页</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">广告计划管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">广告素材列表</a></dd>
-                            <dd><a href="javascript:;">广告计划列表</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">财务管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">财务信息</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">系统管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">基本信息</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item"><a href="">退出</a></li>
+                    @if (!ViewBag.IsAdmin)
+                    {
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a class="" href="javascript:;">首页</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/Home/Index">首页</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">广告计划管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="javascript:;">广告素材列表</a></dd>
+                                <dd><a href="javascript:;">广告计划列表</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">财务管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="javascript:;">财务信息</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">系统管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="javascript:;">基本信息</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item"><a href="/Login/LoginOut">退出</a></li>
+                    }
+                    else
+                    {
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a href="javascript:;">广告计划管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/UserManage/Index">广告主列表</a></dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item"><a href="/Login/LoginOut">退出</a></li>
+                    }
                 </ul>
             </div>
         </div>
@@ -92,13 +105,13 @@
             </div>
         </div>-->
 
-    <div class="layui-body">
-        @RenderBody()
-        <!-- 内容主体区域 -->
-        @*<div class="layui-tab layui-tab-brief" lay-filter="contexttab">
+        <div class="layui-body">
+            @RenderBody()
+            <!-- 内容主体区域 -->
+            @*<div class="layui-tab layui-tab-brief" lay-filter="contexttab">
 
-        </div>*@
-    </div>
+                </div>*@
+        </div>
 
         <div class="layui-footer">
             <!-- 底部固定区域 -->
