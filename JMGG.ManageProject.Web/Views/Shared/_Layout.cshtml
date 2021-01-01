@@ -13,15 +13,49 @@
     <script src="~/Scripts/jquery-template/jquery.tmpl.min.js"></script>
     <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
     <script src="~/Scripts/layui/layui.js"></script>
-    @*<script src="~/Scripts/layout/Layerout.js?@Context.Application["APPVersion"]"></script>*@
-
 </head>
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
             <div class="layui-logo">聚美广告代理商</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
-            <ul class="layui-nav layui-layout-left"></ul>
+            <ul class="layui-nav layui-layout-left">
+                @if (!ViewBag.IsAdmin)
+                {
+                    <li class="layui-nav-item"><a href="/Home/Index">首页</a></li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">推广</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="">广告素材列表</a></dd>
+                            <dd><a href="">广告计划列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="/Home/Index">报表</a></li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">财务</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/Home/Index">财务信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">系统</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="">基本信息</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="/Login/LoginOut">退出</a></li>
+                }
+                else
+                {
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);">广告计划管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="/UserManage/Index">广告主列表</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="/Login/LoginOut">退出</a></li>
+                }
+            </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
@@ -31,7 +65,8 @@
             </ul>
         </div>
 
-        <div class="layui-side layui-bg-black">
+        <!--隐藏左边导航栏,只使用头部导航条-->
+        <div class="layui-side layui-bg-black" style="display:none;">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
@@ -78,42 +113,11 @@
             </div>
         </div>
 
-        <!--<div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">-->
-        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-        <!--<ul class="layui-nav layui-nav-tree" lay-filter="test" id="menuall"></ul>
-                <script id="MneuListTmpl" type="text/x-jquery-tmpl">
-                    {{each(i,menu) menuList}}
-                    {{if (i==0) }}
-                    <li class="layui-nav-item layui-nav-itemed">
-                        {{else}}
-                    <li class="layui-nav-item layui-nav-itemed">
-                        {{/if}}
-                        {{if (menu.childrenMenu.length>0)}}
-                        <a class="" href="javascript:;">${menu.parentMenu}</a>
-                        <dl class="layui-nav-child">
-                            {{each(i,child) menu.childrenMenu}}
-                            <dd id="menu${child.navName}"><a href="${child.url}">${child.name}</a></dd>
-                            {{/each}}
-                        </dl>
-                        {{else}}
-                        <a class="" href="${menu.parentUrl}"><i class="fa fa-sign-out"></i> <span>${menu.parentMenu}</span></a>
-                        {{/if}}
-                    </li>
-                    {{/each}}
-                </script>
-            </div>
-        </div>-->
-
-        <div class="layui-body">
+        <div class="layui-body" style="left:20px;right:20px;">
             @RenderBody()
-            <!-- 内容主体区域 -->
-            @*<div class="layui-tab layui-tab-brief" lay-filter="contexttab">
-
-                </div>*@
         </div>
 
-        <div class="layui-footer">
+        <div class="layui-footer" style="left:0px;right:0px;">
             <!-- 底部固定区域 -->
             © jintong.net - <a href="https://www.jintong.net/" target="_blank">聚美优品 版权所有 © 2020 JUMEI.COM</a>
         </div>

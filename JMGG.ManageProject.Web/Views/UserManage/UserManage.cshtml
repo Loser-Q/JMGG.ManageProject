@@ -4,14 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-@{
-    ViewBag.Title = "用户管理";
-}
-
-<blockquote class="layui-elem-quote blog-manage-breadcrumb">
+<blockquote class="layui-elem-quote blog-manage-breadcrumb" style="margin-top: 5px;">
     <span class="layui-breadcrumb">
         <a>广告计划管理</a>
         <a href="@Url.Action("Index", "UserManage")"><cite>广告主列表</cite></a>
@@ -65,7 +58,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">密码框</label>
+                <label class="layui-form-label">登录密码</label>
                 <div class="layui-input-inline">
                     <input type="password" name="PassWord" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" style="width:80%;">
                 </div>

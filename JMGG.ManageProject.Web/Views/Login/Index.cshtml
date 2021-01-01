@@ -9,7 +9,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>登录</title>
-    <script src="~/Scripts/jquery/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/jquery/jquery-1.10.2.min.js"></script>*@
+    <script src="~/Scripts/jquery/jquery-1.8.1.min.js"></script>
     <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
     <script src="~/Scripts/layui/layui.js"></script>
     <style type="text/css">
@@ -278,10 +279,11 @@
                 var loginPassword = $('#loginPassword').val();
                 var loginLoadIndex = layer.load(2);
                 $('#loginBtn').val("正在登录...");
+
                 $.ajax({
-                    type: 'post',
+                    type: 'POST',
                     url: '/Login/LoginSystem',
-                    async: false,
+                    async: true,
                     cache: false,
                     data: { loginUsername: loginUsername, loginPassword: loginPassword },
                     dataType: "JSON",
