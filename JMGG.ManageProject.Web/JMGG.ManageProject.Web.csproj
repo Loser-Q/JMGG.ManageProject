@@ -391,8 +391,12 @@
       <Project>{2dab9012-b28b-4e65-ace2-c15954844d04}</Project>
       <Name>JMGG.ManageProject.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JMGG.ManageProject.Job\JMGG.ManageProject.Job.csproj">
+      <Project>{06fd0acf-b3aa-4f90-836b-90cd8d656d0e}</Project>
+      <Name>JMGG.ManageProject.Job</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JMGG.ManageProject.Model\JMGG.ManageProject.Model.csproj">
-      <Project>{fe868203-079c-4977-8306-59f5127c2296}</Project>
+      <Project>{FE868203-079C-4977-8306-59F5127C2296}</Project>
       <Name>JMGG.ManageProject.Model</Name>
     </ProjectReference>
   </ItemGroup>
