@@ -42,7 +42,7 @@ namespace JMGG.ManageProject.Web.Controllers
             if (userInfo != null)
             {
                 //将用户信息赋值到session
-                Session["Login"] = ManagePass.Encrypt(JsonConvert.SerializeObject(new UserInfo { Mobile = loginUsername, BussinessID = userInfo.BussinessID, CompanyName = userInfo.CompanyName }), encryptKey);
+                Session["Login"] = ManagePass.Encrypt(JsonConvert.SerializeObject(new LoginInfo { UserName = loginUsername, BusinessID = userInfo.BussinessID, CompanyName = userInfo.CompanyName }), encryptKey);
                 return Json(new { result = true, msg = "登录成功" });
             }
             else

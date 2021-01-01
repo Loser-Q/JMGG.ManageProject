@@ -13,7 +13,7 @@ namespace JMGG.ManageProject.Web.Controllers
             if (base.UserInfo != null)
             {
                 ViewBag.CompanyName = base.UserInfo.CompanyName;
-                ViewBag.BussinID = base.UserInfo.BussinessID;
+                ViewBag.BussinID = base.UserInfo.BusinessID;
             }
 
             return View();

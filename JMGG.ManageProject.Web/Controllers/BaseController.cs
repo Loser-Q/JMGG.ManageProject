@@ -22,7 +22,7 @@ namespace JMGG.ManageProject.Web.Controllers
         /// <summary>
         /// 登录信息
         /// </summary>
-        public UserInfo UserInfo
+        public LoginInfo UserInfo
         {
             get
             {
@@ -31,12 +31,12 @@ namespace JMGG.ManageProject.Web.Controllers
                 {
                     //解密
                     var decryParma = ManagePass.Decrypt(loginUser.ToString(), encryptKey);
-                    var UserInfo = JsonConvert.DeserializeObject<UserInfo>(decryParma);
+                    var UserInfo = JsonConvert.DeserializeObject<LoginInfo>(decryParma);
                     return UserInfo;
                 }
                 else
                 {
-                    return new UserInfo();
+                    return new LoginInfo();
                 }
             }
         }
@@ -92,8 +92,8 @@ namespace JMGG.ManageProject.Web.Controllers
                     {
                         try
                         {
-                            UserInfo loginUserCookie = JsonConvert.DeserializeObject<UserInfo>(ManagePass.Decrypt(loginUserStr, encryptKey));
-                            logBuiler.Append(string.Format("{0}\r\n{1}\r\n{2}\\r\n", loginUserCookie.Mobile, "使用过cookie恢复session登录", "用户session"));
+                            LoginInfo loginUserCookie = JsonConvert.DeserializeObject<LoginInfo>(ManagePass.Decrypt(loginUserStr, encryptKey));
+                            logBuiler.Append(string.Format("{0}\r\n{1}\r\n{2}\\r\n", loginUserCookie.UserName, "使用过cookie恢复session登录", "用户session"));
                             filterContext.HttpContext.Session[SESSIONKEY] = loginUserStr;
                             filterContext.HttpContext.Session.Timeout = 180;
                         }
