@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="DBConnectionStringConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\UseManageCMD.cs" />
+    <Compile Include="User\UseManageQuery.cs" />
     <Compile Include="User\UserInfoQuery.cs" />
   </ItemGroup>
   <ItemGroup>

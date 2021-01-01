@@ -41,7 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvertisingPlanEntity.cs" />
+    <Compile Include="BaseResponse.cs" />
+    <Compile Include="FinanceInfoEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceMaterialEntity.cs" />
+    <Compile Include="User\UseManageEntity.cs" />
     <Compile Include="User\UserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

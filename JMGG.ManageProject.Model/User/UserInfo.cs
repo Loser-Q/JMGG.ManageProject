@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace JMGG.ManageProject.Model.User
 {
     public class UserInfo
-    {  
+    {
         /// <summary>
-       /// 商户ID
-       /// </summary>
+        /// 商户ID
+        /// </summary>
         public string BussinessID { get; set; }
         /// <summary>
         /// 公司名称
@@ -33,6 +33,34 @@ namespace JMGG.ManageProject.Model.User
         /// </summary>
         public string Contacts { get; set; }
         /// <summary>
+        /// 代理商ID
+        /// </summary>
+        public string AgentId { get; set; }
+        /// <summary>
+        /// 产品名称
+        /// </summary>
+        public string ProductId { get; set; }
+        /// <summary>
+        /// Email
+        /// </summary>
+        public string Email { get; set; }
+        /// <summary>
+        /// 营业执照
+        /// </summary>
+        public string BusinessHeat { get; set; }
+        /// <summary>
+        /// 资质备案1
+        /// </summary>
+        public string QualificationUrl1 { get; set; }
+        /// <summary>
+        /// 资质备案2
+        /// </summary>
+        public string QualificationUrl2 { get; set; }
+        /// <summary>
+        /// 资质备案3
+        /// </summary>
+        public string QualificationUrl3 { get; set; }
+        /// <summary>
         /// 创建者
         /// </summary>
         public string CreateUser { get; set; }
@@ -40,6 +68,10 @@ namespace JMGG.ManageProject.Model.User
         /// 创建时间
         /// </summary>
         public string CreateTime { get; set; }
+        /// <summary>
+        /// 账号状态
+        /// </summary>
+        public string AccountStatus { get; set; }
     }
 
     public class LoginInfo
