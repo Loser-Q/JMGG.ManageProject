@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceQuery.cs" />
-    <Compile Include="BasicInfo\BasicInfoQuery.cs" />
+    <Compile Include="CreativePlan\CreativePlanQuery.cs" />
+    <Compile Include="Creative\CreativeQuery.cs" />
     <Compile Include="DBConnectionStringConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfigDB.cs" />

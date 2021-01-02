@@ -1,4 +1,4 @@
-﻿using JMGG.ManageProject.DataAccess.BasicInfo;
+﻿using JMGG.ManageProject.DataAccess.CreativePlan;
 using JMGG.ManageProject.DataAccess.User;
 using JMGG.ManageProject.Model;
 using JMGG.ManageProject.Model.User;
@@ -7,19 +7,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JMGG.ManageProject.Model.BasicInfo;
+using JMGG.ManageProject.Model.CreativePlan;
+using JMGG.ManageProject.DataAccess.Creative;
+using JMGG.ManageProject.Model.Creative;
 
 namespace JMGG.ManageProject.Business
 {
-    public class BasicInfoLogic
+    public class CreativeLogic
     {
-        private static readonly BasicInfoQuery basicInfoQuery = new BasicInfoQuery();
-        public BasicInfoPageResponse QueryUserListPage(BasicInfoRequest request)
+        private static readonly CreativeQuery CreativePlanQuery = new CreativeQuery();
+        public CreativePageResponse QueryUserListPage(CreativeRequest request)
         {
             int total = 0;
-            var pageList = basicInfoQuery.QueryBasicInfo(request, out total);
+            var pageList = CreativePlanQuery.QueryCreativePlan(request, out total);
 
-            BasicInfoPageResponse page = new BasicInfoPageResponse();
+            CreativePageResponse page = new CreativePageResponse();
             if (pageList != null && pageList.Count > 0)
             {
                 page.count = total;

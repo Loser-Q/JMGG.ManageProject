@@ -1,6 +1,6 @@
 ﻿using JMGG.ManageProject.Business;
 using JMGG.ManageProject.Common;
-using JMGG.ManageProject.Model.Creative;
+using JMGG.ManageProject.Model.CreativePlan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +10,15 @@ using System.Web.Mvc;
 namespace JMGG.ManageProject.Web.Controllers
 {
 
-    public class BasicInfoController : Controller
+    public class CreativePlanController : Controller
     {
-        private static readonly CreativeLogic CreativeLogic = new CreativeLogic();
+        private static readonly CreativePlanLogic CreativePlanLogic = new CreativePlanLogic();
 
         // GET: CreativePlan
-        public ActionResult From()
+        public ActionResult Index()
         {
             ViewBag.IsAdmin = true;
-            return View("~/Views/BasicInfo/From.cshtml");
+            return View("~/Views/CreativePlan/Index.cshtml");
         }
         /// <summary>
         /// 基础信息
@@ -31,22 +31,28 @@ namespace JMGG.ManageProject.Web.Controllers
                 int page = !string.IsNullOrEmpty(Request["page"]) ? Convert.ToInt32(Request["page"]) : 1;
                 int limit = !string.IsNullOrEmpty(Request["limit"]) ? Convert.ToInt32(Request["limit"]) : 10;
 
-                var Introduce = Request["Introduce"] ?? "";
-                var SourceID = Request["SourceID"] ?? "";
+                var ADName = Request["ADName"] ?? "";
+                var BusinessPlanID = Request["BusinessPlanID"] ?? "";
+                var startLaunchTime = Request["startLaunchTime"] ?? "";
+                var endLaunchTime = Request["endLaunchTime"] ?? "";
+                var Status = Request["Status"] ?? "";
 
-                var paramRequest = new CreativeRequest
+                var paramRequest = new CreativePlanRequest
                 {
                     PageIndex = page,
                     PageSize = limit,
-                    Introduce = Introduce,
-                    SourceID = SourceID,
+                    ADName =ADName,
+                    BusinessPlanID = BusinessPlanID,
+                    endLaunchTime = endLaunchTime,
+                    startLaunchTime = startLaunchTime,
+                    Status = Status
                 };
                 if (paramRequest.PageIndex == 0)
                     paramRequest.PageIndex = 1;
                 else
                     paramRequest.PageIndex = (paramRequest.PageIndex / 10) + 1;
 
-                var result = CreativeLogic.QueryUserListPage(paramRequest);
+                var result = CreativePlanLogic.QueryUserListPage(paramRequest);
                 if (result != null && result.count > 0)
                 {
                     result.msg = "SUCCESS";
@@ -57,7 +63,7 @@ namespace JMGG.ManageProject.Web.Controllers
             catch (Exception ex)
             {
                 LogWriter.error($"GetUserManageList=>获取基础信息的异常：{ex.ToString() + ex.Message}");
-                return Json(new CreativePageResponse()  { code = 9 });
+                return Json(new CreativePlanPageResponse()  { code = 9 });
             }
         }
 
