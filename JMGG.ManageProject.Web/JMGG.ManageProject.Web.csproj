@@ -377,8 +377,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\JobManage\" />
     <Folder Include="Views\FinancialInfo\" />
-    <Folder Include="Views\CreativePlan\" />
-    <Folder Include="Views\Creative\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

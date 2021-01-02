@@ -70,8 +70,36 @@
         var upload = layui.upload;
 
         upload.render({
-            before: function () {
-                layer.msg('视频努力上传中,请耐心等待...', { icon: 16, shade: 0.8, time: false });
+            elem: '.upload_video',
+            url: '/Upload/FileLoad',
+            method: 'post',
+            accept: 'video',
+            exts: 'mp4|avi|wmv|rm|mov|m4v',
+            size: '102400',
+            before: function (e) {
+                // 提示上传
+                layerLoader = layer.load(2, {
+                    content: '上传中...',
+                    success: function (layero) {
+                        layero.find('.layui-layer-content').css({
+                            'paddingTop': '40px',
+                            'width': '60px',
+                            'textAlign': 'center',
+                            'backgroundPositionX': 'center'
+                        });
+                    }
+                });
+            }
+            , done: function (res, index, upload) {
+                //获取当前触发上传的元素，一般用于 elem 绑定 class 的情况，注意：此乃 layui 2.1.0 新增
+                layer.close(layerLoader);
+                if (res.code == 0) {
+                    this.item.parent().parent().find('.video_url').val(res.data.video_url);
+                    this.item.parent().parent().find('.mp3_url').val(res.data.mp3_url);
+                    $('.main_img').val(res.data.main_img);
+                    this.item.parent().parent().find('.preview_video').html('<div id="videomse" data-src=' + res.data.url + '></div>');
+                    addPlayBox();
+                }
             },
             elem: '#VideoBtn'
             , url: '@Url.Action("FileLoad","FileUpload")'
