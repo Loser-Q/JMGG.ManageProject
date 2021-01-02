@@ -1,21 +1,21 @@
-﻿@{
+﻿@*@{
     ViewBag.Title = "基本信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    }*@
 
 
 
 
-@{
+@*@{
     ViewBag.Title = "基本信息";
-}
+    }*@
 <!DOCTYPE html>
 
 <html>
 
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>基本信息</title>
+    <title>广告素材列表</title>
 </head>
 
 <body>
@@ -24,9 +24,15 @@
             <div class="layui-form ">
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label" i18n="footer.user name">名称</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="uName" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <label class="layui-form-label" style="width: 100px;">素材ID</label>
+                        <div class="layui-input-inline" style="width: 300px; margin-right: 57px;">
+                            <input type="text" name="ADName" class="layui-input" value="">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width: 100px;">广告介绍</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="BusinessPlanID" class="layui-input" value="">
                         </div>
                     </div>
                 </div>
@@ -35,17 +41,15 @@
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         <lable i18n="footer.search">搜索</lable>
                     </button>
+                    <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-add">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        <lable i18n="footer.search">新建素材</lable>
+                    </button>
                 </div>
             </div>
 
             <div class="layui-card-body">
-                <table id="LAY-BasicInfo" lay-filter="LAY-BasicInfo"></table>
-                <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">查看报表</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">查看报表</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">操作记录</a>
-                </script>
+                <table id="LAY-CreativeList" lay-filter="LAY-CreativeList"></table>
             </div>
         </div>
     </div>
@@ -53,13 +57,23 @@
 
 </html>
 <script>
-    layui.use(['form', 'jquery', 'table', 'layer'], function () {
+    layui.use(['form', 'jquery', 'table', 'layer', 'laydate'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var table = layui.table;
         var layer = layui.layer;
-
-
+        var laydate = layui.laydate;
+        //新增日期插件
+        function dateAdd() {
+            lay('.datetime').each(function () {
+                laydate.render({
+                    elem: this,
+                    trigger: 'click',
+                    type: 'datetime'
+                })
+            })
+        }
+        dateAdd();
         table.set({
             parseData: function (res) {
                 return {
@@ -72,30 +86,20 @@
         })
         //表格加载
         var cols = [[
-            { field: 'BussinessID', title: '开关', }
-            , { field: 'UserName', title: '广告计划ID', }
-            , { field: 'CompanyName', title: '商家计划ID', }
-            , { field: 'CreateTimeStr', title: '名称', }
-            , { field: 'CreateTimeStr', title: '投放点位', }
-            , { field: 'CreateTimeStr', title: '计费方式', }
-            , { field: 'CreateTimeStr', title: '单价', }
-            , { field: 'CreateTimeStr', title: '单日预算', }
-            , { field: 'CreateTimeStr', title: 'CTR', }
-            , { field: 'CreateTimeStr', title: 'ECPM(CPC)', }
-            , { field: 'CreateTimeStr', title: '投放排期', }
-            , { field: 'CreateTimeStr', title: '投放时段', }
-            , { field: 'CreateTimeStr', title: '状态', }
-            , { field: 'CreateTimeStr', title: '审核原因', }
-            , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 300 }
+            { field: 'SourceID', title: '素材ID', }
+            , { field: 'VideoUrl', title: '预览', }
+            , { field: 'Introduce', title: '广告介绍', }
+            , { field: 'LastUpdateTime', title: '最后更新时间', }
+            , { field: 'CreateTime', title: '创建时间', }
+            , { field: 'Status', title: '状态', }
         ]]
         var tableIns = table.render({
-            elem: '#LAY-BasicInfo',
-            url: '/BasicInfo/GetList', //数据接口
+            elem: '#LAY-CreativeList',
+            url: '/Creative/GetList', //数据接口
             cols: cols,
             method: 'post',
             done: function (res) { },
             parseData: function (res) {
-                debugger;
                 return {
                     code: res.code, //解析接口状态
                     msg: res.msg, //解析提示文本
@@ -119,6 +123,9 @@
                 },
                 where: field,
             })
+        })
+        form.on('submit(LAY-user-front-add)', function (data) {
+            window.location.href = '../Creative/From';
         })
 
     });

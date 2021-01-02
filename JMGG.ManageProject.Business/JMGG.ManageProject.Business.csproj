@@ -50,12 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceLogic.cs" />
+    <Compile Include="CreativeLogic.cs" />
     <Compile Include="AdPlanLogLogic.cs" />
     <Compile Include="FinanceInfoLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfigLogic.cs" />
     <Compile Include="UserLogic.cs" />
-    <Compile Include="BasicInfoLogic.cs" />
+    <Compile Include="CreativePlanLogic.cs" />
     <Compile Include="UserManageLogic.cs" />
   </ItemGroup>
   <ItemGroup>

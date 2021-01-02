@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceQuery.cs" />
+    <Compile Include="CreativePlan\CreativePlanQuery.cs" />
+    <Compile Include="Creative\CreativeQuery.cs" />
     <Compile Include="AdPlanLogCMD.cs" />
     <Compile Include="AdPlanLogQuery.cs" />
     <Compile Include="BasicInfo\BasicInfoQuery.cs" />
