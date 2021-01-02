@@ -1,6 +1,8 @@
 ﻿using JMGG.ManageProject.Business;
 using JMGG.ManageProject.Common;
+using JMGG.ManageProject.Model;
 using JMGG.ManageProject.Model.Creative;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,5 +69,28 @@ namespace JMGG.ManageProject.Web.Controllers
                 return Json(new CreativePageResponse()  { code = 9 });
             }
         }
+        /// <summary>
+        /// 新增广告素材
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult Add()
+        {
+            var Video = "Http://" + Request.Url.Authority.ToString()+Request["Video"] ?? "";
+            var desc_content = Request["desc_content"] ?? "";
+            
+            if (Video == "")
+                return Json(new BaseResponse { result = false, msg = "请求参数不能为空" });
+
+            var creativeEntity = new CreativeEntity
+            {
+                CreateTime = DateTime.Now.ToString(), DataType = "2", Introduce = desc_content,
+                LastUpdateTime = DateTime.Now.ToString(), SourceID = "1", Status = "1", VideoUrl = Video
+            };
+           
+            var caResponse = CreativeLogic.Insert(creativeEntity);
+            return Json(caResponse);
+        }
+
     }
 }

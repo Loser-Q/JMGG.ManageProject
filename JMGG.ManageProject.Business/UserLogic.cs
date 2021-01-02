@@ -16,5 +16,10 @@ namespace JMGG.ManageProject.Business
         {
             return userQuery.QueryUserInfoByAccount(request);
         }
+        public UserInfo QueryUserInfoByBusinessID(UserInfo request)
+        {
+            
+            return userQuery.QueryUserInfoByBusinessID(request);
+        }
     }
 }

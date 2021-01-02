@@ -130,6 +130,7 @@
     <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\PlanReportController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\CreativeController.cs" />
     <Compile Include="Controllers\CreativePlanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

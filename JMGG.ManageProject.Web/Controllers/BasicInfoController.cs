@@ -6,13 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using JMGG.ManageProject.Model.User;
+using Newtonsoft.Json;
 
 namespace JMGG.ManageProject.Web.Controllers
 {
 
     public class BasicInfoController : BaseController
     {
-        private static readonly CreativeLogic CreativeLogic = new CreativeLogic();
+        private static readonly UserLogic userLogic = new UserLogic();
 
         // GET: CreativePlan
         public ActionResult From()
@@ -21,46 +23,31 @@ namespace JMGG.ManageProject.Web.Controllers
             ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
             return View("~/Views/BasicInfo/From.cshtml");
         }
+
         /// <summary>
         /// 基础信息
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetList()
+        public JsonResult QueryInfo()
         {
-            try
+
+            var BussinessID = Request["BussinessID"] ?? "";
+
+           
+
+            var userInfo = userLogic.QueryUserInfoByBusinessID(new UserInfo
             {
-                int page = !string.IsNullOrEmpty(Request["page"]) ? Convert.ToInt32(Request["page"]) : 1;
-                int limit = !string.IsNullOrEmpty(Request["limit"]) ? Convert.ToInt32(Request["limit"]) : 10;
+                BussinessID = base.UserInfo.BusinessID,
+            });
+            if (userInfo != null)
+            {
 
-                var Introduce = Request["Introduce"] ?? "";
-                var SourceID = Request["SourceID"] ?? "";
-
-                var paramRequest = new CreativeRequest
-                {
-                    PageIndex = page,
-                    PageSize = limit,
-                    Introduce = Introduce,
-                    SourceID = SourceID,
-                };
-                if (paramRequest.PageIndex == 0)
-                    paramRequest.PageIndex = 1;
-                else
-                    paramRequest.PageIndex = (paramRequest.PageIndex / 10) + 1;
-
-                var result = CreativeLogic.QueryUserListPage(paramRequest);
-                if (result != null && result.count > 0)
-                {
-                    result.msg = "SUCCESS";
-                    result.code = 0;
-                }
-                return Json(result);
+                return Json(new { result = true, msg = "获取成功！" ,data= userInfo });
             }
-            catch (Exception ex)
+            else
             {
-                LogWriter.error($"GetUserManageList=>获取基础信息的异常：{ex.ToString() + ex.Message}");
-                return Json(new CreativePageResponse()  { code = 9 });
+                return Json(new { result = false, msg = "获取失败！" });
             }
         }
-
     }
 }

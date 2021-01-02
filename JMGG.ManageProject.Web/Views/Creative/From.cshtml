@@ -27,14 +27,13 @@
             <div class="layui-form">
                 <div class="layui-form-item">
                     <label class="layui-form-label"><em style="color: #ff111d;">*</em> 视频文件:</label>
-                    <div class="layui-input-inline">
-                        <button type="button" class="layui-btn upload_video" lay-data="{ }">
-                            <i class="layui-icon"></i>上传视频
-                        </button><input class="layui-upload-file" type="file" name="file">
+                    <div class="layui-input-inline layui-upload">
+                        <button type="button" class="layui-btn" id="VideoBtn"><i
+                                class="layui-icon">&#xe67c;</i>上传视频</button>
+                        <input type="hidden" name="Video" id="Video" />
+                        <div class="layui-upload-list" id="videoPlay">
+                        </div>
                     </div>
-                    <input type="hidden" name="video_url" class="video_url">
-                    <input type="hidden" name="mp3_url" class="mp3_url">
-                    <input type="hidden" name="main_img" class="main_img">
                     <div class="layui-input-inline">
                         <div class="preview_video"></div>
                         <div class="layui-form-mid layui-word-aux">视频大小不能超过100M,仅支持.mp4格式</div>
@@ -47,14 +46,14 @@
                             style="width:300px;height:80px;padding:10px;"></textarea>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="site-title">
-            <fieldset class="layui-elem-field layui-field-title">
-                <legend><a name="use">提交信息</a></legend>
-            </fieldset>
-            <div class="layui-input-block">
-                <button type="button" class="layui-btn sub">保存</button>
+                <div>
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend><a name="use">提交信息</a></legend>
+                    </fieldset>
+                    <div class="layui-input-block">
+                        <button type="button" lay-submit class="layui-btn" lay-filter="sub">保存</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -71,129 +70,70 @@
         var upload = layui.upload;
 
         upload.render({
-            elem: '.upload_video',
-            url: '/Upload/FileLoad',
-            method: 'post',
-            accept: 'video',
-            exts: 'mp4|avi|wmv|rm|mov|m4v',
-            size: '102400',
-            before: function (e) {
-                // 提示上传
-                layerLoader = layer.load(2, {
-                    content: '上传中...',
-                    success: function (layero) {
-                        layero.find('.layui-layer-content').css({
-                            'paddingTop': '40px',
-                            'width': '60px',
-                            'textAlign': 'center',
-                            'backgroundPositionX': 'center'
+            before: function () {
+                layer.msg('视频努力上传中,请耐心等待...', { icon: 16, shade: 0.8, time: false });
+            },
+            elem: '#VideoBtn'
+            , url: '@Url.Action("FileLoad","FileUpload")'
+            , accept: 'video' //视频
+            , exts: 'mp4'//只允许上传的后缀(mp4文件)
+            , done: function (res) {
+                console.log(res);
+                layer.closeAll();
+                layer.msg(res.msg);
+                if (res.code == 1) {
+                    $("#Video").val(res.path);
+                    $("#videoPlay").html('<video controls="controls" id="currentVideo" style="width:400px;"><source src="' + res.path + '" type="video/mp4" /></video>');
+                    $("#videoPlay").show();
+                    // 自动播放
+                    $("#currentVideo")[0].play();
+                }
+            }
+        });
+
+        $(".layui-upload-list").on("click", "i", function () {
+            $(this).parent().remove();
+        });
+
+        function checkData() {
+            var video_url = $('input[name=Video]').val();
+            if (video_url.length <= 0) {
+                layer.msg('请上传视频');
+                return false;
+            }
+
+            var desc_content = $('textarea[name=desc_content]').val();
+            if (desc_content.length <= 0) {
+                layer.msg('广告介绍不能为空');
+                return false;
+            }
+            if (desc_content.length > 30) {
+                layer.msg('广告介绍不能超过30个字符');
+                return false;
+            }
+            return true;
+        }
+        form.on('submit(sub)', function (data) {
+            debugger;
+            var field = data.field
+            if (checkData()) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Creative/Add",
+                    data: field,
+                    dataType: "JSON",
+                    success: function (msg) {
+                        if (!msg.result) {
+                            layer.alert(msg.msg);
+                            return;
+                        }
+                        layer.alert(msg.msg, function () {
+                            window.location.reload();
                         });
                     }
                 });
+
             }
-            , done: function (res, index, upload) {
-                //获取当前触发上传的元素，一般用于 elem 绑定 class 的情况，注意：此乃 layui 2.1.0 新增
-                layer.close(layerLoader);
-                if (res.code == 0) {
-                    this.item.parent().parent().find('.video_url').val(res.data.video_url);
-                    this.item.parent().parent().find('.mp3_url').val(res.data.mp3_url);
-                    $('.main_img').val(res.data.main_img);
-                    this.item.parent().parent().find('.preview_video').html('<div id="videomse" data-src=' + res.data.url + '></div>');
-                    addPlayBox();
-                }
-            },
-            error: function (e) {
-                layer.close(layerLoader);
-            }
-        });
+        })
     });
-    function addPlayBox() {
-        setTimeout(function () {
-            var url = $('#videomse').data('src');
-            new Player({
-                id: 'videomse',
-                url: url,
-                autoplay: true,
-                lang: 'zh-cn'
-            });
-        }, 100);
-    }
-
-    $(function () {
-        $('.sub').click(function () {
-            var checkFlag = checkData();
-            if (!checkFlag) {
-                return;
-            }
-            // 提示上传
-            layerLoader2 = layer.load(2, {
-                content: '保存中...',
-                success: function (layero) {
-                    layero.find('.layui-layer-content').css({
-                        'paddingTop': '40px',
-                        'width': '60px',
-                        'textAlign': 'center',
-                        'backgroundPositionX': 'center',
-                        'position': 'fixed',
-                        'zIndex': '999999'
-                    });
-                }
-            });
-            console.log(layerLoader2);
-            $.ajax({
-                url: '/Material/Add',
-                type: 'POST',
-                data: new FormData($('#material-form')[0]),
-                dataType: 'JSON',
-                cache: false,
-                processData: false,
-                contentType: false,
-                async: true,
-                success: function (result) {
-                    layer.close(layerLoader2);
-                    if (result['code'] != 0) {
-                        var msg = '提交异常';
-                        if (result['msg'])
-                            msg = result['msg']
-                        layer.msg(msg);
-                        return;
-                    }
-                    layer.open({
-                        content: result['msg']
-                        , btn: ['确定']
-                        , yes: function (index, layero) {
-                            window.location.href = result['skip_url'];
-                        }
-                        , cancel: function () {
-                            window.location.href = result['skip_url'];
-                        }
-                    });
-                },
-                error: function () {
-                    layer.msg('提交异常');
-                    layer.close(layerLoader2);
-                }
-            });
-        });
-    });
-
-    function checkData() {
-        var video_url = $('input[name=video_url]').val();
-        if (video_url.length <= 0) {
-            layer.msg('请上传视频');
-            return false;
-        }
-
-        var desc_content = $('textarea[name=desc_content]').val();
-        if (desc_content.length <= 0) {
-            layer.msg('广告介绍不能为空');
-            return false;
-        }
-        if (desc_content.length > 30) {
-            layer.msg('广告介绍不能超过30个字符');
-            return false;
-        }
-        return true;
-    }
-
 </script>
