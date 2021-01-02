@@ -53,6 +53,7 @@
     <Compile Include="CreativeLogic.cs" />
     <Compile Include="AdPlanLogLogic.cs" />
     <Compile Include="FinanceInfoLogic.cs" />
+    <Compile Include="PlanReportLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfigLogic.cs" />
     <Compile Include="UserLogic.cs" />

@@ -11,6 +11,7 @@ namespace JMGG.ManageProject.Business
     public class AdPlanLogLogic
     {
         private static readonly AdPlanLogQuery adPlanQuery = new AdPlanLogQuery();
+        private static readonly AdPlanLogCMD adPlanCMD = new AdPlanLogCMD();
 
         public AdPlanyLogPageResponse QueryAdPlanLogListPage(AdPlanyLogRequest request)
         {
@@ -25,6 +26,11 @@ namespace JMGG.ManageProject.Business
                 return page;
             }
             return page;
+        }
+
+        public bool InsertAdPlanLog(AdPlanyLogEntity entity)
+        {
+            return adPlanCMD.InsertAdPlanLog(entity);
         }
     }
 }

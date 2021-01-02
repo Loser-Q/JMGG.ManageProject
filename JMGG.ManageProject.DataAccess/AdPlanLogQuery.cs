@@ -29,13 +29,15 @@ namespace JMGG.ManageProject.DataAccess
             DynamicParameters dp = new DynamicParameters();
             string where_1 = " 1=1 ";
 
-            where_1 += " and a.UserMangeId=@UserMangeId";
-            dp.Add("UserMangeId", request.UserName, DbType.String);
-
+            if (!request.IsAdmin)
+            {
+                where_1 += " and a.UserMangeId=@UserMangeId";
+                dp.Add("UserMangeId", request.UserName, DbType.String);
+            }
             if (!string.IsNullOrWhiteSpace(request.BussinessPlanId))
             {
                 where_1 += " and a.BusinessPlanID=@BusinessPlanID";
-                dp.Add("BusinessPlanID", request.BussinessID, DbType.String);
+                dp.Add("BusinessPlanID", request.BussinessPlanId, DbType.String);
             }
             if (!string.IsNullOrWhiteSpace(request.AdPlanId))
             {

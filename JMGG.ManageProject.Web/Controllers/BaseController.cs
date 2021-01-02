@@ -74,7 +74,7 @@ namespace JMGG.ManageProject.Web.Controllers
                             //-------Cookie写入----------
                             HttpCookie cookie = new HttpCookie(COOKIEKEY);//定义cookie对象以及名为Info的项 
                             DateTime dt = DateTime.Now;//定义时间对象 
-                            TimeSpan ts = new TimeSpan(0, 12, 30, 0);//cookie有效作用时间，具体查msdn (0, 12, 0, 0)
+                            TimeSpan ts = new TimeSpan(0, 3, 0, 0);//cookie有效作用时间，具体查msdn (0, 12, 0, 0)
                             cookie.Expires = dt.Add(ts);//添加作用时间 
                             cookie.Values.Add("userfineral", loginUser.ToString());//增加属性 
                             Response.AppendCookie(cookie);//确定写入cookie中                           

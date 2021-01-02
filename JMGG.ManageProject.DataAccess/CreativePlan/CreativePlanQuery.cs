@@ -50,6 +50,22 @@ namespace JMGG.ManageProject.DataAccess.CreativePlan
                 where_1 += " and a.LaunchTime<=@endLaunchTime";
                 dp.Add("endLaunchTime", request.endLaunchTime, DbType.String);
             }
+            if (!request.IsAdmin)
+            {
+                where_1 += " and a.UserManageId=@UserManageId";
+                dp.Add("UserManageId", request.UserManageId, DbType.Int32);
+            }
+            if (!string.IsNullOrWhiteSpace(request.NewAdPlanID))
+            {
+                where_1 += " and a.NewAdPlanID=@NewAdPlanID";
+                dp.Add("NewAdPlanID", request.NewAdPlanID, DbType.String);
+            }
+            if (!string.IsNullOrWhiteSpace(request.AdPlanID))
+            {
+                where_1 += " and a.AdPlanID=@AdPlanID";
+                dp.Add("AdPlanID", request.AdPlanID, DbType.String);
+            }
+
             where_1 += " and a.IsDelete=0 ";
 
             dp.Add("PageIndex", request.PageIndex, DbType.Int32, ParameterDirection.Input);
@@ -65,6 +81,47 @@ namespace JMGG.ManageProject.DataAccess.CreativePlan
                 list = conn.Query<CreativePlanEntity>(sql_list, dp).ToList();
             }
             return list;
+        }
+
+        public CreativePlanEntity QueryCreativePlanById(int id)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append("  ");
+            sql.Append(" SELECT TOP 1 [Id]  ");
+            sql.Append(" ,[Switch]  ");
+            sql.Append(" ,[NewAdPlanID]  ");
+            sql.Append(" ,[ADPlanID]  ");
+            sql.Append(" ,[BusinessPlanID]  ");
+            sql.Append(" ,[ADName]  ");
+            sql.Append(" ,[DeliveryPoint]  ");
+            sql.Append(" ,[BillingMethod]  ");
+            sql.Append(" ,[UnitPrice]  ");
+            sql.Append(" ,[DayBudget]  ");
+            sql.Append(" ,[CTRPV]  ");
+            sql.Append(" ,[CRUUV]  ");
+            sql.Append(" ,[ECPMCPC]  ");
+            sql.Append(" ,[ECPMCPM]  ");
+            sql.Append(" ,[LaunchSchedule]  ");
+            sql.Append(" ,[LaunchTime]  ");
+            sql.Append(" ,[Status]  ");
+            sql.Append(" ,[ApprovalReason]  ");
+            sql.Append(" ,[SourceType]  ");
+            sql.Append(" ,[CreateTime]  ");
+            sql.Append(" ,[CreateUser]  ");
+            sql.Append(" ,[IsDelete]  ");
+            sql.Append(" ,[DraftId]  ");
+            sql.Append(" ,[DraftStatus]  ");
+            sql.Append(" ,[UserManageId]  ");
+            sql.Append(" ,[UserName]  ");
+            sql.Append(" ,[BusinessID]  ");
+            sql.Append(" ,[NewUnitPrice]  ");
+            sql.Append(" ,[NewDayBudget]  ");
+            sql.Append(" FROM [dbo].[tblAdvertisingPlan] with(nolock) ");
+            sql.Append(" where Id=@Id ");
+            using (IDbConnection conn = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))
+            {
+                return conn.Query<CreativePlanEntity>(sql.ToString(), new { Id = id }).FirstOrDefault();
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ namespace JMGG.ManageProject.Business
     public class CreativePlanLogic
     {
         private static readonly CreativePlanQuery CreativePlanQuery = new CreativePlanQuery();
+        private static readonly CreativePlanCMD CreativePlanCMD = new CreativePlanCMD();
+
         public CreativePlanPageResponse QueryUserListPage(CreativePlanRequest request)
         {
             int total = 0;
@@ -28,6 +30,20 @@ namespace JMGG.ManageProject.Business
             }
             return page;
         }
-   
+
+        /// <summary>
+        /// 更新广告计划
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool UpdateAdPlanById(CreativePlanEntity entity)
+        {
+            return CreativePlanCMD.UpdateAdPlanById(entity);
+        }
+
+        public CreativePlanEntity QueryCreativePlanById(int id)
+        {
+            return CreativePlanQuery.QueryCreativePlanById(id);
+        }
     }
 }

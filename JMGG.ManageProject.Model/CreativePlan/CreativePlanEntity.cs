@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace JMGG.ManageProject.Model.CreativePlan
 {
     /// <summary>
-    ///用户管理页面（后台配置使用）
+    ///广告计划
     /// </summary>
     public class CreativePlanEntity
     {
@@ -17,7 +17,11 @@ namespace JMGG.ManageProject.Model.CreativePlan
         /// </summary>
         public string Switch { get; set; }
         /// <summary>
-        /// 广告计划ID
+        /// 本系统生成的唯一广告计划ID
+        /// </summary>
+        public string NewAdPlanID { get; set; }
+        /// <summary>
+        /// 广告计划ID（抓取的原系统ID）
         /// </summary>
         public string ADPlanID { get; set; }
         /// <summary>
@@ -44,9 +48,19 @@ namespace JMGG.ManageProject.Model.CreativePlan
         public string UnitPrice { get; set; }
 
         /// <summary>
-        /// 单日
+        /// 单日预算
         /// </summary>
         public string DayBudget { get; set; }
+
+        /// <summary>
+        /// 单价（管理员修改后的数据）
+        /// </summary>
+        public string NewUnitPrice { get; set; }
+
+        /// <summary>
+        /// 单日预算（管理员修改后的数据）
+        /// </summary>
+        public string NewDayBudget { get; set; }
 
         /// <summary>
         /// CTRPV
@@ -101,6 +115,19 @@ namespace JMGG.ManageProject.Model.CreativePlan
         /// 开关操作传值使用
         /// </summary>
         public string DraftStatus { get; set; }
+
+        /// <summary>
+        /// 用户ID(关联用户UserManage表的ID)
+        /// </summary>
+        public string UserManageId { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName { get; set; }
+        /// <summary>
+        /// 商户ID
+        /// </summary>
+        public string BusinessID { get; set; }
     }
 
     /// <summary>
@@ -115,11 +142,20 @@ namespace JMGG.ManageProject.Model.CreativePlan
         public string startLaunchTime { get; set; }
         public string endLaunchTime { get; set; }
 
+        public int UserManageId { get; set; }
         public string Status { get; set; }
 
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+        /// <summary>
+        /// 是否是管理员
+        /// </summary>
+        public bool IsAdmin { get; set; }
+
+        public string AdPlanID { get; set; }
+
+        public string NewAdPlanID { get; set; }
     }
 
     public class CreativePlanPageResponse

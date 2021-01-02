@@ -3,6 +3,7 @@
     Layout = null;
     var BusinessPlanId = ViewBag.BusinessPlanId;
     var AdPlanId = ViewBag.AdPlanId;
+    var IsAmdin = ViewBag.IsAdmin;
 }
 
 <!DOCTYPE html>
@@ -15,8 +16,21 @@
     <script src="~/Scripts/jquery-template/jquery.tmpl.min.js"></script>
     <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
     <script src="~/Scripts/layui/layui.js"></script>
+    <style type="text/css">
+        .layui-table-cell {
+            font-size: 14px;
+            padding: 0 5px;
+            height: auto;
+            overflow: visible;
+            text-overflow: inherit;
+            white-space: normal;
+            word-break: break-all;
+        }
+    </style>
     <script type="text/javascript">
-
+        var bussinessId = @BusinessPlanId;
+        var adplanId = @AdPlanId;
+        var isAdmin=@IsAmdin;
         layui.use(['laydate', 'table', 'layer'], function () {
             var $ = layui.jquery;
             var laydate = layui.laydate;
@@ -35,45 +49,27 @@
                 , limits: [10, 15, 20]
                 , method: 'post'  //提交方式
                 , cols: [[ //表头
-                    , { field: 'BussinessID', title: '商家计划ID', width: 150, sort: false }
-                    , { field: 'ADPlanID', title: '广告计划ID', width: 160, sort: false }
-                    , { field: 'ADName', title: '名称', width: 1800, sort: false }
-                    , { field: 'BillingMethod', title: '计费方式', width: 150, sort: false }
-                    , { field: 'OperationType', title: '操作类型', width: 150, sort: false }
-                    , { field: 'OldJson', title: '操作前', width: 200, sort: false }
-                    , { field: 'NewJson', title: '操作后', width: 200, sort: false }
-                    , { field: 'CreateTimeStr', title: '操作时间', width: 180, sort: false }
+                    , { field: 'BusinessPlanID', title: '商家计划ID', sort: false }
+                    , { field: 'ADPlanID', title: '广告计划ID',  sort: false }
+                    , { field: 'ADName', title: '名称',  sort: false }
+                    , { field: 'BillingMethod', title: '计费方式', sort: false }
+                    , { field: 'OperationType', title: '操作类型',  sort: false }
+                    , { field: 'OldJson', title: '操作前',  sort: false }
+                    , { field: 'NewJson', title: '操作后',  sort: false }
+                    , { field: 'CreateTimeStr', title: '操作时间',  sort: false }
                 ]]
                 , id: 'testReload'
                 , where: {
-                    businessPlanId: '@BusinessPlanIdBusinessPlanId',
-                    adPlanId:'@AdPlanIdAdPlanId'
+                    businessPlanId: bussinessId,
+                    adPlanId: adplanId,
+                    isAdmin: isAdmin
                 }
             });
 
-            ////查询事件
-            //var $ = layui.$, active = {
-            //    reload: function () {
-            //        var startTime = $('#startTime');
-            //        var endTime = $('#endTime');
-            //        //执行重载
-            //        table.reload('testReload', {
-            //            page: {
-            //                curr: 1 //重新从第 1 页开始
-            //            }
-            //            , where: {
-            //                startTime: $.trim(startTime.val()),
-            //                endTime: $.trim(endTime.val())
-            //            }
-            //        }, 'data');
-            //    }
-            //};
             $('.demoTable .layui-btn').on('click', function () {
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });
-
-
         });
     </script>
 </head>

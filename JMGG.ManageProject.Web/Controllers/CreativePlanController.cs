@@ -22,7 +22,7 @@ namespace JMGG.ManageProject.Web.Controllers
             return View("~/Views/CreativePlan/Index.cshtml");
         }
         /// <summary>
-        /// 基础信息
+        /// 广告计划
         /// </summary>
         /// <returns></returns>
         public JsonResult GetList()
@@ -42,11 +42,13 @@ namespace JMGG.ManageProject.Web.Controllers
                 {
                     PageIndex = page,
                     PageSize = limit,
-                    ADName =ADName,
+                    ADName = ADName,
                     BusinessPlanID = BusinessPlanID,
                     endLaunchTime = endLaunchTime,
                     startLaunchTime = startLaunchTime,
-                    Status = Status
+                    Status = Status,
+                    IsAdmin = false,
+                    UserManageId = base.UserInfo.UserManageID
                 };
                 if (paramRequest.PageIndex == 0)
                     paramRequest.PageIndex = 1;
@@ -64,7 +66,7 @@ namespace JMGG.ManageProject.Web.Controllers
             catch (Exception ex)
             {
                 LogWriter.error($"GetUserManageList=>获取基础信息的异常：{ex.ToString() + ex.Message}");
-                return Json(new CreativePlanPageResponse()  { code = 9 });
+                return Json(new CreativePlanPageResponse() { code = 9 });
             }
         }
 

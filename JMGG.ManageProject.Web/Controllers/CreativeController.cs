@@ -67,6 +67,5 @@ namespace JMGG.ManageProject.Web.Controllers
                 return Json(new CreativePageResponse()  { code = 9 });
             }
         }
-
     }
 }

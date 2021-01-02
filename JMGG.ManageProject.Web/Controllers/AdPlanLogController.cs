@@ -18,9 +18,11 @@ namespace JMGG.ManageProject.Web.Controllers
         {
             var businessPlanId = !string.IsNullOrEmpty(Request["businessPlanId"]) ? Request["businessPlanId"] : "";
             var adPlanId = !string.IsNullOrEmpty(Request["adPlanId"]) ? Request["adPlanId"] : "";
+            var isAmdin = !string.IsNullOrEmpty(Request["isAmdin"]) ? Request["isAmdin"] : "";
             ViewBag.BusinessPlanId = businessPlanId;
             ViewBag.AdPlanId = adPlanId;
-            return View();
+            ViewBag.IsAdmin = isAmdin;
+            return View("~/Views/AdPlanLog/PlanLog.cshtml");
         }
 
         /// <summary>
@@ -35,6 +37,7 @@ namespace JMGG.ManageProject.Web.Controllers
                 int limit = !string.IsNullOrEmpty(Request["limit"]) ? Convert.ToInt32(Request["limit"]) : 10;
                 var businessPlanId = !string.IsNullOrEmpty(Request["businessPlanId"]) ? Request["businessPlanId"] : "";
                 var adPlanId = !string.IsNullOrEmpty(Request["adPlanId"]) ? Request["adPlanId"] : "";
+                var isAmin = !string.IsNullOrEmpty(Request["isAdmin"]) ? Request["isAdmin"] : "";
                 if (businessPlanId == "" || adPlanId == "")
                 {
                     return Json(new AdPlanyLogPageResponse { code = -1, msg = "无数据" });
@@ -45,7 +48,8 @@ namespace JMGG.ManageProject.Web.Controllers
                     AdPlanId = adPlanId,
                     BussinessPlanId = businessPlanId,
                     PageIndex = page,
-                    PageSize = limit
+                    PageSize = limit,
+                    IsAdmin = isAmin == "1"
                 };
                 if (paramRequest.PageIndex == 0)
                     paramRequest.PageIndex = 1;

@@ -74,6 +74,10 @@ namespace JMGG.ManageProject.Model
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+        /// <summary>
+        /// 是否管理员
+        /// </summary>
+        public bool IsAdmin { get; set; }
     }
 
     public class AdPlanyLogPageResponse

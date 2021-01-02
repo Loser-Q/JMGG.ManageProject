@@ -51,6 +51,7 @@
     <Compile Include="Job\SchedulerConfigModel.cs" />
     <Compile Include="Job\SchedulerLogModel.cs" />
     <Compile Include="Job\SchedulerRequest.cs" />
+    <Compile Include="PlanReportEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourceMaterialEntity.cs" />
     <Compile Include="User\UseManageEntity.cs" />

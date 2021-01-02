@@ -45,12 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceQuery.cs" />
+    <Compile Include="CreativePlan\CreativePlanCMD.cs" />
     <Compile Include="CreativePlan\CreativePlanQuery.cs" />
     <Compile Include="Creative\CreativeQuery.cs" />
     <Compile Include="AdPlanLogCMD.cs" />
     <Compile Include="AdPlanLogQuery.cs" />
     <Compile Include="DBConnectionStringConfig.cs" />
     <Compile Include="FinanceInfoQuery.cs" />
+    <Compile Include="PlanReportQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfigDB.cs" />
     <Compile Include="SchedulerConfigQuery.cs" />

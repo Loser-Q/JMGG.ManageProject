@@ -8,7 +8,7 @@ namespace JMGG.ManageProject.Model.Creative
 
 {
     /// <summary>
-    ///用户管理页面（后台配置使用）
+    /// 广告素材
     /// </summary>
     public class CreativeEntity
     {
@@ -44,6 +44,18 @@ namespace JMGG.ManageProject.Model.Creative
         /// </summary>
         public string DataType { get; set; }
 
+        /// <summary>
+        /// 用户ID(关联用户UserManage表的ID)
+        /// </summary>
+        public string UserManageId { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName { get; set; }
+        /// <summary>
+        /// 商户ID
+        /// </summary>
+        public string BusinessID { get; set; }
     }
 
     /// <summary>
@@ -75,15 +87,5 @@ namespace JMGG.ManageProject.Model.Creative
         public int code { get; set; }
 
         public string msg { get; set; }
-
-        ///// <summary>
-        ///// 总数目
-        ///// </summary>
-        //public int total { get; set; }
-
-        ///// <summary>
-        ///// 每页行数
-        ///// </summary>
-        //public List<UseManageEntity> rows { get; set; }
     }
 }
