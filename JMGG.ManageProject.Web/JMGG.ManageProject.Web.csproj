@@ -367,7 +367,6 @@
     <Content Include="Views\Creative\Index.cshtml" />
     <Content Include="Views\Creative\From.cshtml" />
     <Content Include="Views\BasicInfo\From.cshtml" />
-    <Content Include="Views\BasicInfo\Index.cshtml" />
     <Content Include="Views\Finance\Index.cshtml" />
     <Content Include="Views\AdPlanLog\PlanLog.cshtml" />
     <Content Include="Views\AdminAdPlan\AdminAdPlan.cshtml" />
@@ -376,6 +375,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\JobManage\" />
+    <Folder Include="Views\FinancialInfo\" />
+    <Folder Include="Views\CreativePlan\" />
+    <Folder Include="Views\Creative\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
