@@ -16,6 +16,7 @@ namespace JMGG.ManageProject.Business
     public class CreativeLogic
     {
         private static readonly CreativeQuery CreativePlanQuery = new CreativeQuery();
+        private static readonly CreativeCMD creativeCmd = new CreativeCMD();
         public CreativePageResponse QueryUserListPage(CreativeRequest request)
         {
             int total = 0;
@@ -30,6 +31,14 @@ namespace JMGG.ManageProject.Business
             }
             return page;
         }
-   
+        public BaseResponse Insert(CreativeEntity request)
+        {
+            var res = creativeCmd.Inser(request);
+            return new BaseResponse
+            {
+                result = res,
+                msg = res ? "成功" : "操作失败"
+            };
+        }
     }
 }

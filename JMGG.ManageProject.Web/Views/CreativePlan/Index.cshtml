@@ -72,6 +72,9 @@
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         <lable i18n="footer.search">搜索</lable>
                     </button>
+                    <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-add">
+                        <lable i18n="footer.search">新建广告计划</lable>
+                    </button>
                 </div>
             </div>
 
@@ -175,6 +178,8 @@
                 where: field,
             })
         })
-
+        form.on('submit(LAY-user-front-add)', function (data) {
+            window.location.href = '../CreativePlan/From';
+        })
     });
 </script>

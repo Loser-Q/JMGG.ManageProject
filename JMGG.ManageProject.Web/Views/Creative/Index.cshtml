@@ -42,7 +42,6 @@
                         <lable i18n="footer.search">搜索</lable>
                     </button>
                     <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-add">
-                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         <lable i18n="footer.search">新建素材</lable>
                     </button>
                 </div>
@@ -50,6 +49,9 @@
 
             <div class="layui-card-body">
                 <table id="LAY-CreativeList" lay-filter="LAY-CreativeList"></table>
+                <script type="text/html" id="video">
+                <div onclick="showImg(this)"><img  src="{{ d.VideoUrl.replace('mp4', 'png') }}" style="width:30px; height:30px;"></div>
+                </script>
             </div>
         </div>
     </div>
@@ -87,7 +89,7 @@
         //表格加载
         var cols = [[
             { field: 'SourceID', title: '素材ID', }
-            , { field: 'VideoUrl', title: '预览', }
+            , { field: 'VideoUrl', title: '预览', templet: '#video' }
             , { field: 'Introduce', title: '广告介绍', }
             , { field: 'LastUpdateTime', title: '最后更新时间', }
             , { field: 'CreateTime', title: '创建时间', }
@@ -127,6 +129,26 @@
         form.on('submit(LAY-user-front-add)', function (data) {
             window.location.href = '../Creative/From';
         })
+        $(function () {
+            //点击图片播放视频
+
+        })
 
     });
+    function showImg(t) {
+        var t = $(t).find("img");
+        var loadstr = '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src="' + $(t).attr('src').replace('png', 'mp4') + '" type="video/mp4"></source></video>'
+
+        //页面层
+        layer.open({
+            type: 1,
+            closeBtn: 1,
+            shade: false,
+            title: '播放视频', //不显示标题
+            //skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: false,
+            area: ['50%', '70%'],
+            content: loadstr
+        });
+    }
 </script>

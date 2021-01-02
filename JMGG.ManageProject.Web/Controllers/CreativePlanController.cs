@@ -21,6 +21,12 @@ namespace JMGG.ManageProject.Web.Controllers
             ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
             return View("~/Views/CreativePlan/Index.cshtml");
         }
+        public ActionResult From()
+        {
+            ViewBag.IsAdmin = false;
+            ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
+            return View("~/Views/CreativePlan/From.cshtml");
+        }
         /// <summary>
         /// 广告计划
         /// </summary>

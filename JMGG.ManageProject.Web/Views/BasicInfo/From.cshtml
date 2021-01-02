@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div class="layui-fluid" style="margin-top: 30px;">
+    <div class="layui-fluid layui-form" id="form" style="margin-top: 30px;">
         <div class="site-title">
             <fieldset class="layui-elem-field layui-field-title">
                 <legend>基本信息</legend>
@@ -29,57 +29,66 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">商家ID</label>
                         <div class="layui-input-block">
-                            <input type="text" name="sellerid" required disabled lay-verify="required" value="175720" autocomplete="off" class="layui-input">
+                            <input type="text" name="BussinessID" required disabled lay-verify="required" value="175720"
+                                autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">代理商ID</label>
                         <div class="layui-input-block">
-                            <input type="text" name="agent_id" disabled value="169137" autocomplete="off" class="layui-input">
+                            <input type="text" name="AgentId" disabled value="169137" autocomplete="off"
+                                class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">公司名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="company_name" disabled value="淘宝（中国）软件有限公司" autocomplete="off" class="layui-input">
+                            <input type="text" name="CompanyName" disabled value="淘宝（中国）软件有限公司" autocomplete="off"
+                                class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">通讯地址</label>
                         <div class="layui-input-block">
-                            <input type="text" name="company_address" disabled value="上海市市辖区普陀区上海市普陀区中江路879号天地软件园A幢3号204" autocomplete="off" class="layui-input">
+                            <input type="text" name="Address" disabled value="上海市市辖区普陀区上海市普陀区中江路879号天地软件园A幢3号204"
+                                autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">网站链接</label>
                         <div class="layui-input-block">
-                            <input type="text" name="website" disabled value="https://www.etao.com/" autocomplete="off" class="layui-input">
+                            <input type="text" name="URL" disabled value="https://www.etao.com/" autocomplete="off"
+                                class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">产品名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="product_name" disabled value="一淘" autocomplete="off" class="layui-input">
+                            <input type="text" name="ProductId" disabled value="一淘" autocomplete="off"
+                                class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">联系人姓名</label>
                         <div class="layui-input-block">
-                            <input type="text" name="username" value="张志杰" autocomplete="off" class="layui-input">
+                            <input type="text" name="Contacts" value="张志杰" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">手机号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="phone" value="185****8035" data-value="18516758035" autocomplete="off" class="layui-input">
+                                <input type="text" name="Mobile" value="185****8035" data-value="18516758035"
+                                    autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-input-inline" style="width: 100px;padding-top: 5px;">
-                                <button class="layui-btn layui-btn-sm" id="send-phone-identify-code" style="width: 80px;">发送验证码</button>
+                                <button class="layui-btn layui-btn-sm" id="send-phone-identify-code"
+                                    style="width: 80px;">发送验证码</button>
                             </div>
                             <label class="layui-form-label">短信验证码</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="phone_identify_code" id="phone-identify-code" autocomplete="off" class="layui-input">
+                                <input type="text" name="phone_identify_code" id="phone-identify-code"
+                                    autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -87,14 +96,17 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">邮箱</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" required value="zzj@globalzx.com" data-value="zzj@globalzx.com" autocomplete="off" class="layui-input">
+                                <input type="text" name="Email" required value="zzj@globalzx.com"
+                                    data-value="zzj@globalzx.com" autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-input-inline" style="width: 100px;padding-top: 5px;">
-                                <button class="layui-btn layui-btn-sm" id="send-email-identify-code" style="width: 80px;">发送验证码</button>
+                                <button class="layui-btn layui-btn-sm" id="send-email-identify-code"
+                                    style="width: 80px;">发送验证码</button>
                             </div>
                             <label class="layui-form-label">邮箱验证码</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email_identify_code" id="email-identify-code" autocomplete="off" class="layui-input">
+                                <input type="text" name="email_identify_code" id="email-identify-code"
+                                    autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -134,8 +146,11 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da847296.jpg" target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da847296.jpg" alt="">
+                                                <a name='BusinessHeat'
+                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da847296.jpg"
+                                                    target="_blank">
+                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da847296.jpg"
+                                                        alt="">
                                                 </a>
                                             </td>
                                             <td>913301007682254698</td>
@@ -161,8 +176,11 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da261eba.jpg" target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da261eba.jpg" alt="">
+                                                <a name="QualificationUrl1"
+                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da261eba.jpg"
+                                                    target="_blank">
+                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da261eba.jpg"
+                                                        alt="">
                                                 </a>
                                             </td>
                                             <td>
@@ -171,8 +189,11 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10f068cc7b.jpg" target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10f068cc7b.jpg" alt="">
+                                                <a name="QualificationUrl2"
+                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10f068cc7b.jpg"
+                                                    target="_blank">
+                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10f068cc7b.jpg"
+                                                        alt="">
                                                 </a>
                                             </td>
                                             <td>
@@ -181,8 +202,11 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <a href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10d9b1c653.jpg" target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10d9b1c653.jpg" alt="">
+                                                <a name="QualificationUrl3"
+                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10d9b1c653.jpg"
+                                                    target="_blank">
+                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10d9b1c653.jpg"
+                                                        alt="">
                                                 </a>
                                             </td>
                                             <td>
@@ -202,7 +226,7 @@
 
 </html>
 <script>
-    layui.use(['form', 'jquery', 'table', 'layer', 'laydate', 'upload'], function () {
+    layui.use(['form', 'jquery', 'layer',], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var table = layui.table;
@@ -210,130 +234,87 @@
         var laydate = layui.laydate;
         var upload = layui.upload;
 
-        upload.render({
-            elem: '.upload_video',
-            url: '/Upload/Video',
-            method: 'post',
-            accept: 'video',
-            exts: 'mp4|avi|wmv|rm|mov|m4v',
-            size: '102400',
-            before: function (e) {
-                // 提示上传
-                layerLoader = layer.load(2, {
-                    content: '上传中...',
-                    success: function (layero) {
-                        layero.find('.layui-layer-content').css({
-                            'paddingTop': '40px',
-                            'width': '60px',
-                            'textAlign': 'center',
-                            'backgroundPositionX': 'center'
-                        });
-                    }
-                });
-            }
-            , done: function (res, index, upload) {
-                //获取当前触发上传的元素，一般用于 elem 绑定 class 的情况，注意：此乃 layui 2.1.0 新增
-                layer.close(layerLoader);
-                if (res.code == 0) {
-                    this.item.parent().parent().find('.video_url').val(res.data.video_url);
-                    this.item.parent().parent().find('.mp3_url').val(res.data.mp3_url);
-                    $('.main_img').val(res.data.main_img);
-                    this.item.parent().parent().find('.preview_video').html('<div id="videomse" data-src=' + res.data.url + '></div>');
-                    addPlayBox();
-                }
-            },
-            error: function (e) {
-                layer.close(layerLoader);
+
+        $.ajax({
+            type: "POST",
+            url: "/BasicInfo/QueryInfo",
+            dataType: "JSON",
+            success: function (data) {
+                debugger;
+                $("#form").formSerialize(data.data);
             }
         });
-    });
-    function addPlayBox() {
-        setTimeout(function () {
-            var url = $('#videomse').data('src');
-            new Player({
-                id: 'videomse',
-                url: url,
-                autoplay: true,
-                lang: 'zh-cn'
-            });
-        }, 100);
-    }
 
-    $(function () {
-        $('.sub').click(function () {
-            var checkFlag = checkData();
-            if (!checkFlag) {
-                return;
-            }
-            // 提示上传
-            layerLoader2 = layer.load(2, {
-                content: '保存中...',
-                success: function (layero) {
-                    layero.find('.layui-layer-content').css({
-                        'paddingTop': '40px',
-                        'width': '60px',
-                        'textAlign': 'center',
-                        'backgroundPositionX': 'center',
-                        'position': 'fixed',
-                        'zIndex': '999999'
-                    });
-                }
-            });
-            console.log(layerLoader2);
-            $.ajax({
-                url: '/Material/Add',
-                type: 'POST',
-                data: new FormData($('#material-form')[0]),
-                dataType: 'JSON',
-                cache: false,
-                processData: false,
-                contentType: false,
-                async: true,
-                success: function (result) {
-                    layer.close(layerLoader2);
-                    if (result['code'] != 0) {
-                        var msg = '提交异常';
-                        if (result['msg'])
-                            msg = result['msg']
-                        layer.msg(msg);
-                        return;
+
+        $.fn.formSerialize = function (formdate, callback) {
+            var $form = $(this);
+            if (!!formdate) {
+                for (var key in formdate) {
+                    var $field = $form.find("[name=" + key + "]");
+                    if ($field.length == 0) {
+                        continue;
                     }
-                    layer.open({
-                        content: result['msg']
-                        , btn: ['确定']
-                        , yes: function (index, layero) {
-                            window.location.href = result['skip_url'];
+                    var value = $.trim(formdate[key]);
+                    var type = $field.attr('type');
+                    if ($field.hasClass('select2')) {
+                        type = "select2";
+                    }
+                    switch (type) {
+                        case "checkbox":
+                            value == "true" ? $field.attr("checked", 'checked') : $field.removeAttr("checked");
+                            break;
+                        case "select2":
+                            if (!$field[0].multiple) {
+                                $field.select2().val(value).trigger("change");
+                            } else {
+                                var values = value.split(',');
+                                $field.select2().val(values).trigger("change");
+                            }
+                            break;
+                        case "radio":
+                            $field.each(function (index, $item) {
+                                if ($item.value == value) {
+                                    $item.checked = true;
+                                }
+                            });
+                            break;
+                        default:
+                            $field.val(value);
+                            break;
+                    }
+
+                };
+                // 特殊的表单字段可以在回调函数中手动赋值。
+                if (callback && $.isFunction(callback)) {
+                    callback(formdate);
+                }
+                return false;
+            }
+            var postdata = {};
+            $form.find('input,select,textarea').each(function (r) {
+                var $this = $(this);
+                var id = $this.attr('id');
+                var type = $this.attr('type');
+                switch (type) {
+                    case "checkbox":
+                        postdata[id] = $this.is(":checked");
+                        break;
+                    default:
+                        var value = $this.val() == "" ? "&nbsp;" : $this.val();
+                        if (!$.getQueryString("id")) {
+                            value = value.replace(/&nbsp;/g, '');
                         }
-                        , cancel: function () {
-                            window.location.href = result['skip_url'];
-                        }
-                    });
-                },
-                error: function () {
-                    layer.msg('提交异常');
-                    layer.close(layerLoader2);
+                        postdata[id] = value;
+                        break;
                 }
             });
-        });
+            //if ($('[name=__RequestVerificationToken]').length > 0) {
+            //    postdata["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
+            //}
+            return postdata;
+        }
+
+
     });
-
-    function checkData() {
-        var video_url = $('input[name=video_url]').val();
-        if (video_url.length <= 0) {
-            layer.msg('请上传视频');
-            return false;
-        }
-
-        var desc_content = $('textarea[name=desc_content]').val();
-        if (desc_content.length <= 0) {
-            layer.msg('广告介绍不能为空');
-            return false;
-        }
-        if (desc_content.length > 30) {
-            layer.msg('广告介绍不能超过30个字符');
-            return false;
-        }
-        return true;
-    }
 
 </script>

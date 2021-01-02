@@ -50,6 +50,7 @@
     <Compile Include="Creative\CreativeQuery.cs" />
     <Compile Include="AdPlanLogCMD.cs" />
     <Compile Include="AdPlanLogQuery.cs" />
+    <Compile Include="Creative\CreativeCMD.cs" />
     <Compile Include="DBConnectionStringConfig.cs" />
     <Compile Include="FinanceInfoQuery.cs" />
     <Compile Include="PlanReportQuery.cs" />

@@ -33,7 +33,7 @@ namespace JMGG.ManageProject.Web.Controllers
                     isAdmin = true;
                     return Redirect("/UserManage/Index");
                 }
-                balanceEntity = balanceLogic.QueryBalanceByUserId(new Model.AccountBalanceEntity { BusinessId = base.UserInfo.BusinessID, UserName = base.UserInfo.UserName });
+                //balanceEntity = balanceLogic.QueryBalanceByUserId(new Model.AccountBalanceEntity { BusinessId = base.UserInfo.BusinessID, UserName = base.UserInfo.UserName });
             }
             if (balanceEntity == null)
             {
