@@ -1,14 +1,4 @@
-﻿@*@{
-    ViewBag.Title = "基本信息";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
-
-
-
-
-@*@{
-    ViewBag.Title = "基本信息";
-    }*@
+﻿
 <!DOCTYPE html>
 
 <html>
@@ -19,6 +9,13 @@
 </head>
 
 <body>
+    <blockquote class="layui-elem-quote blog-manage-breadcrumb" style="margin-top: 5px;">
+        <span class="layui-breadcrumb">
+            <a>推广</a>
+            <a href="@Url.Action("Index", "Creative")"><cite>广告素材列表</cite></a>
+        </span>
+    </blockquote>
+
     <div class="layui-fluid" style="margin-top: 30px;">
         <div class="site-title">
             <fieldset class="layui-elem-field layui-field-title">
@@ -28,8 +25,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><em style="color: #ff111d;">*</em> 视频文件:</label>
                     <div class="layui-input-inline layui-upload">
-                        <button type="button" class="layui-btn" id="VideoBtn"><i
-                                class="layui-icon">&#xe67c;</i>上传视频</button>
+                        <button type="button" class="layui-btn" id="VideoBtn">
+                            <i class="layui-icon">&#xe67c;</i>上传视频
+                        </button>
                         <input type="hidden" name="Video" id="Video" />
                         <div class="layui-upload-list" id="videoPlay">
                         </div>
@@ -43,7 +41,7 @@
                     <label class="layui-form-label"><em style="color: #ff111d;">*</em> 广告介绍:</label>
                     <div class="layui-input-inline">
                         <textarea name="desc_content" placeholder="广告介绍建议30字以内"
-                            style="width:300px;height:80px;padding:10px;"></textarea>
+                                  style="width:300px;height:80px;padding:10px;"></textarea>
                     </div>
                 </div>
                 <div>
@@ -135,14 +133,13 @@
                 layer.msg('广告介绍不能为空');
                 return false;
             }
-            if (desc_content.length > 30) {
-                layer.msg('广告介绍不能超过30个字符');
+            if (desc_content.length > 60) {
+                layer.msg('广告介绍不能超过60个字符');
                 return false;
             }
             return true;
         }
         form.on('submit(sub)', function (data) {
-            debugger;
             var field = data.field
             if (checkData()) {
                 $.ajax({

@@ -47,7 +47,7 @@ namespace JMGG.ManageProject.Model.Creative
         /// <summary>
         /// 用户ID(关联用户UserManage表的ID)
         /// </summary>
-        public string UserManageId { get; set; }
+        public int UserManageId { get; set; }
         /// <summary>
         /// 用户名
         /// </summary>
@@ -70,6 +70,8 @@ namespace JMGG.ManageProject.Model.Creative
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+
+        public int UserManageId { get; set; }
     }
 
     public class CreativePageResponse

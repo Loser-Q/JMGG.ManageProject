@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 
 namespace JMGG.ManageProject.Web.Controllers
 {
-
     public class BasicInfoController : BaseController
     {
         private static readonly UserLogic userLogic = new UserLogic();
@@ -21,33 +20,16 @@ namespace JMGG.ManageProject.Web.Controllers
         {
             ViewBag.IsAdmin = false;
             ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
-            return View("~/Views/BasicInfo/From.cshtml");
-        }
-
-        /// <summary>
-        /// 基础信息
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult QueryInfo()
-        {
-
-            var BussinessID = Request["BussinessID"] ?? "";
-
-           
-
             var userInfo = userLogic.QueryUserInfoByBusinessID(new UserInfo
             {
-                BussinessID = base.UserInfo.BusinessID,
+                UserManageId = base.UserInfo.UserManageID,
             });
-            if (userInfo != null)
+            if (userInfo != null && !string.IsNullOrEmpty(userInfo.BizInfoJson))
             {
-
-                return Json(new { result = true, msg = "获取成功！" ,data= userInfo });
+                var bizInfoObj = JsonConvert.DeserializeObject<BizInfoEntity>(userInfo.BizInfoJson);
+                userInfo.BizInfo = bizInfoObj;
             }
-            else
-            {
-                return Json(new { result = false, msg = "获取失败！" });
-            }
+            return View("~/Views/BasicInfo/From.cshtml", userInfo);
         }
     }
 }

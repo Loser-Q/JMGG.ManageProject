@@ -36,7 +36,9 @@ namespace JMGG.ManageProject.DataAccess.Creative
                 where_1 += " and a.Introduce=@Introduce";
                 dp.Add("Introduce", request.Introduce, DbType.String);
             }
-
+            where_1 += " and a.UserManageId=@UserManageId";
+            dp.Add("UserManageId", request.UserManageId, DbType.String);
+            
             dp.Add("PageIndex", request.PageIndex, DbType.Int32, ParameterDirection.Input);
             dp.Add("PageSize", request.PageSize, DbType.Int32, ParameterDirection.Input);
 

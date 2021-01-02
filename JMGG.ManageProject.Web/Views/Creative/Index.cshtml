@@ -1,42 +1,45 @@
-﻿@*@{
-    ViewBag.Title = "基本信息";
+﻿
+@{
+    ViewBag.Title = "广告素材列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
+}
 
+<blockquote class="layui-elem-quote blog-manage-breadcrumb" style="margin-top: 5px;">
+    <span class="layui-breadcrumb">
+        <a>推广</a>
+        <a href="@Url.Action("Index", "Creative")"><cite>广告素材列表</cite></a>
+    </span>
+</blockquote>
 
+<style type="text/css">
+    .layui-table-cell {
+        font-size: 14px;
+        padding: 0 5px;
+        height: auto;
+        overflow: visible;
+        text-overflow: inherit;
+        white-space: normal;
+        word-break: break-all;
+    }
+</style>
 
-
-@*@{
-    ViewBag.Title = "基本信息";
-    }*@
-<!DOCTYPE html>
-
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>广告素材列表</title>
-</head>
-
-<body>
-    <div class="layui-fluid" style="margin-top: 30px;">
-        <div class="layui-card">
-            <div class="layui-form ">
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label" style="width: 100px;">素材ID</label>
-                        <div class="layui-input-inline" style="width: 300px; margin-right: 57px;">
-                            <input type="text" name="ADName" class="layui-input" value="">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label" style="width: 100px;">广告介绍</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="BusinessPlanID" class="layui-input" value="">
-                        </div>
+<div class="layui-fluid" style="margin-top: 30px;">
+    <div class="layui-card">
+        <div class="layui-form ">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width: 100px;">素材ID</label>
+                    <div class="layui-input-inline" style="width: 300px; margin-right: 57px;">
+                        <input type="text" name="SourceID" class="layui-input" value="">
                     </div>
                 </div>
-                <div style="padding-bottom: 10px;">
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="width: 100px;">广告介绍</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="Introduce" class="layui-input" value="">
+                    </div>
+                </div>
+                <div class="layui-inline">
                     <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         <lable i18n="footer.search">搜索</lable>
@@ -46,18 +49,17 @@
                     </button>
                 </div>
             </div>
+        </div>
 
-            <div class="layui-card-body">
-                <table id="LAY-CreativeList" lay-filter="LAY-CreativeList"></table>
-                <script type="text/html" id="video">
-                <div onclick="showImg(this)"><img  src="{{ d.VideoUrl.replace('mp4', 'png') }}" style="width:30px; height:30px;"></div>
-                </script>
-            </div>
+        <div class="layui-card-body">
+            <table id="LAY-CreativeList" lay-filter="LAY-CreativeList"></table>
+            <script type="text/html" id="video">
+                <div onclick="showImg(this)"><img src="{{ d.VideoUrl.replace('mp4', 'png') }}" style="width:100px; height:120px;text-align:center;"></div>
+            </script>
         </div>
     </div>
-</body>
+</div>
 
-</html>
 <script>
     layui.use(['form', 'jquery', 'table', 'layer', 'laydate'], function () {
         var $ = layui.jquery;
@@ -93,7 +95,7 @@
             , { field: 'Introduce', title: '广告介绍', }
             , { field: 'LastUpdateTime', title: '最后更新时间', }
             , { field: 'CreateTime', title: '创建时间', }
-            , { field: 'Status', title: '状态', }
+            , { field: 'Status', title: '状态', templet: function (d) { if (d.Status == 0) { return '未使用' } if (d.Status == 1) { return '使用' } } }
         ]]
         var tableIns = table.render({
             elem: '#LAY-CreativeList',

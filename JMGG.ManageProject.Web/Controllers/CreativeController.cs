@@ -49,6 +49,7 @@ namespace JMGG.ManageProject.Web.Controllers
                     PageSize = limit,
                     Introduce = Introduce,
                     SourceID = SourceID,
+                    UserManageId = base.UserInfo.UserManageID
                 };
                 if (paramRequest.PageIndex == 0)
                     paramRequest.PageIndex = 1;
@@ -66,7 +67,7 @@ namespace JMGG.ManageProject.Web.Controllers
             catch (Exception ex)
             {
                 LogWriter.error($"GetUserManageList=>获取基础信息的异常：{ex.ToString() + ex.Message}");
-                return Json(new CreativePageResponse()  { code = 9 });
+                return Json(new CreativePageResponse() { code = 9 });
             }
         }
         /// <summary>
@@ -76,18 +77,26 @@ namespace JMGG.ManageProject.Web.Controllers
         [HttpPost]
         public JsonResult Add()
         {
-            var Video = "Http://" + Request.Url.Authority.ToString()+Request["Video"] ?? "";
+            var Video = "Http://" + Request.Url.Authority.ToString() + Request["Video"] ?? "";
             var desc_content = Request["desc_content"] ?? "";
-            
+
             if (Video == "")
                 return Json(new BaseResponse { result = false, msg = "请求参数不能为空" });
 
             var creativeEntity = new CreativeEntity
             {
-                CreateTime = DateTime.Now.ToString(), DataType = "2", Introduce = desc_content,
-                LastUpdateTime = DateTime.Now.ToString(), SourceID = "1", Status = "1", VideoUrl = Video
+                CreateTime = DateTime.Now.ToString(),
+                DataType = "1",
+                Introduce = desc_content,
+                LastUpdateTime = DateTime.Now.ToString(),
+                SourceID = "SMALL_VIDEO_" + new Random(Guid.NewGuid().GetHashCode()).Next(0, 999999999).ToString("d5").PadRight(8, '0'),
+                Status = "0",
+                VideoUrl = Video,
+                UserManageId = base.UserInfo.UserManageID,
+                UserName = base.UserInfo.UserName,
+                BusinessID = base.UserInfo.BusinessID
             };
-           
+
             var caResponse = CreativeLogic.Insert(creativeEntity);
             return Json(caResponse);
         }

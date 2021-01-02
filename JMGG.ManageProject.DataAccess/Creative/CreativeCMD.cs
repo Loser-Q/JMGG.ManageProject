@@ -17,9 +17,9 @@ namespace JMGG.ManageProject.DataAccess.User
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into tblSourceMaterial (");
-            strSql.Append("SourceID,VideoUrl,Introduce,LastUpdateTime,CreateTime,Status,DataType)");
+            strSql.Append("SourceID,VideoUrl,Introduce,LastUpdateTime,CreateTime,Status,DataType,UserManageId,UserName,BusinessID)");
             strSql.Append(" values (");
-            strSql.Append("@SourceID,@VideoUrl,@Introduce,@LastUpdateTime,@CreateTime,@Status,@DataType)");
+            strSql.Append("@SourceID,@VideoUrl,@Introduce,@LastUpdateTime,@CreateTime,@Status,@DataType,@UserManageId,@UserName,@BusinessID)");
             strSql.Append(";select @@IDENTITY");
 
             using (IDbConnection connection = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))

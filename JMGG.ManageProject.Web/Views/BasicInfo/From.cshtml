@@ -1,320 +1,172 @@
-﻿@*@{
+﻿@using JMGG.ManageProject.Model.User
+@model UserInfo
+@{
     ViewBag.Title = "基本信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
+}
 
+<blockquote class="layui-elem-quote blog-manage-breadcrumb" style="margin-top: 5px;">
+    <span class="layui-breadcrumb">
+        <a>系统</a>
+        <a href="@Url.Action("From", "BasicInfo")"><cite>基本信息</cite></a>
+    </span>
+</blockquote>
 
-
-
-@*@{
-    ViewBag.Title = "基本信息";
-    }*@
-<!DOCTYPE html>
-
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>新增素材</title>
-</head>
-
-<body>
-    <div class="layui-fluid layui-form" id="form" style="margin-top: 30px;">
-        <div class="site-title">
-            <fieldset class="layui-elem-field layui-field-title">
-                <legend>基本信息</legend>
-            </fieldset>
-            <div class="layui-row">
-                <form class="layui-form">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">商家ID</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="BussinessID" required disabled lay-verify="required" value="175720"
-                                autocomplete="off" class="layui-input">
+<div class="layui-fluid layui-form" id="form" style="margin-top: 30px;">
+    <div class="site-title">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>基本信息</legend>
+        </fieldset>
+        <div class="layui-row">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商家ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="BussinessID" required disabled lay-verify="required" value="@Model.BussinessID"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">代理商ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="AgentId" disabled value="@Model.AgentId" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="CompanyName" disabled value="@Model.CompanyName" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">通讯地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="Address" disabled value="@Model.Address"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">网站链接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="URL" disabled value="@Model.WebSite" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">产品名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ProductId" disabled value="@Model.ProductId" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系人姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="Contacts" value="@Model.Contacts" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Mobile" value="@Model.Mobile" data-value=""
+                                   autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">代理商ID</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="AgentId" disabled value="169137" autocomplete="off"
-                                class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="Email" required value="@Model.Email"
+                                   data-value="" autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">公司名称</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="CompanyName" disabled value="淘宝（中国）软件有限公司" autocomplete="off"
-                                class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">通讯地址</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="Address" disabled value="上海市市辖区普陀区上海市普陀区中江路879号天地软件园A幢3号204"
-                                autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">网站链接</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="URL" disabled value="https://www.etao.com/" autocomplete="off"
-                                class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">产品名称</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="ProductId" disabled value="一淘" autocomplete="off"
-                                class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">联系人姓名</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="Contacts" value="张志杰" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">手机号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="Mobile" value="185****8035" data-value="18516758035"
-                                    autocomplete="off" class="layui-input">
-                            </div>
-                            <div class="layui-input-inline" style="width: 100px;padding-top: 5px;">
-                                <button class="layui-btn layui-btn-sm" id="send-phone-identify-code"
-                                    style="width: 80px;">发送验证码</button>
-                            </div>
-                            <label class="layui-form-label">短信验证码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="phone_identify_code" id="phone-identify-code"
-                                    autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">邮箱</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="Email" required value="zzj@globalzx.com"
-                                    data-value="zzj@globalzx.com" autocomplete="off" class="layui-input">
-                            </div>
-                            <div class="layui-input-inline" style="width: 100px;padding-top: 5px;">
-                                <button class="layui-btn layui-btn-sm" id="send-email-identify-code"
-                                    style="width: 80px;">发送验证码</button>
-                            </div>
-                            <label class="layui-form-label">邮箱验证码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email_identify_code" id="email-identify-code"
-                                    autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="submit">提交修改</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-        <div class="site-title">
-            <fieldset class="layui-elem-field layui-field-title">
-                <legend><a name="use">资质信息</a></legend>
-            </fieldset>
-            <div class="layui-row" style="padding-left: 50px;padding-top: 10px;">
-                <div class="layui-tab">
-                    <ul class="layui-tab-title">
-                        <li class="">营业执照</li>
-                        <li class="layui-this">ICP资质备案</li>
-                    </ul>
-                    <div class="layui-tab-content" style="padding-left: 0px;">
-                        <div class="layui-tab-item">
-                            <div class="layui-col-md6">
-                                <table class="layui-table" lay-size="lg">
-                                    <colgroup>
-                                        <col>
-                                        <col>
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>营业执照</th>
-                                            <th>营业执照统一社会信用代码</th>
-                                            <th>资质到期日期</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a name='BusinessHeat'
-                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da847296.jpg"
-                                                    target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da847296.jpg"
-                                                        alt="">
-                                                </a>
-                                            </td>
-                                            <td>913301007682254698</td>
-                                            <td>2030-12-30</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+    </div>
+    <div class="site-title">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend><a name="use">资质信息</a></legend>
+        </fieldset>
+        <div class="layui-row" style="padding-left: 50px;padding-top: 10px;">
+            <div class="layui-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">营业执照</li>
+                    <li>ICP资质备案</li>
+                </ul>
+                <div class="layui-tab-content" style="padding-left: 0px;">
+                    <div class="layui-tab-item">
+                        <div class="layui-col-md6">
+                            <table class="layui-table" lay-size="lg">
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>营业执照</th>
+                                        <th>营业执照统一社会信用代码</th>
+                                        <th>资质到期日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.BizInfo != null && Model.BizInfo.LicenseInfoList != null && Model.BizInfo.LicenseInfoList.Count > 0)
+                                    {
+                                        for (int i = 0; i < Model.BizInfo.LicenseInfoList.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a name='BusinessHeat' href="@Model.BizInfo.LicenseInfoList[i].BizPicUrl" target="_blank">
+                                                        <img src="@Model.BizInfo.LicenseInfoList[i].BizPicUrl" alt="">
+                                                    </a>
+                                                </td>
+                                                <td>@Model.BizInfo.LicenseInfoList[i].CreditCode</td>
+                                                <td>@Model.BizInfo.LicenseInfoList[i].ExpirationDate</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="layui-tab-item layui-show">
-                            <div class="layui-col-md6">
-                                <table class="layui-table" lay-size="lg">
-                                    <colgroup>
-                                        <col width="150">
-                                        <col width="200">
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>营业执照</th>
-                                            <th>资质到期日期</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a name="QualificationUrl1"
-                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da261eba.jpg"
-                                                    target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10da261eba.jpg"
-                                                        alt="">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                2030-12-30
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a name="QualificationUrl2"
-                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10f068cc7b.jpg"
-                                                    target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10f068cc7b.jpg"
-                                                        alt="">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                2030-12-30
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a name="QualificationUrl3"
-                                                    href="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10d9b1c653.jpg"
-                                                    target="_blank">
-                                                    <img src="http://p12.jmstatic.com/adv/material/20191024/jmadv5db10d9b1c653.jpg"
-                                                        alt="">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                2030-12-30
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-col-md6">
+                            <table class="layui-table" lay-size="lg">
+                                <colgroup>
+                                    <col width="150">
+                                    <col width="200">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>营业执照</th>
+                                        <th>资质到期日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.BizInfo != null && Model.BizInfo.IcpInfoList != null && Model.BizInfo.IcpInfoList.Count > 0)
+                                    {
+                                        for (int i = 0; i < Model.BizInfo.IcpInfoList.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a name='QualificationUrl' href="@Model.BizInfo.IcpInfoList[i].BizPicUrl" target="_blank">
+                                                        <img src="@Model.BizInfo.IcpInfoList[i].BizPicUrl" alt="">
+                                                    </a>
+                                                </td>
+                                                <td>@Model.BizInfo.IcpInfoList[i].ExpirationDate</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
-
-</html>
-<script>
-    layui.use(['form', 'jquery', 'layer',], function () {
-        var $ = layui.jquery;
-        var form = layui.form;
-        var table = layui.table;
-        var layer = layui.layer;
-        var laydate = layui.laydate;
-        var upload = layui.upload;
-
-
-        $.ajax({
-            type: "POST",
-            url: "/BasicInfo/QueryInfo",
-            dataType: "JSON",
-            success: function (data) {
-                debugger;
-                $("#form").formSerialize(data.data);
-            }
-        });
-
-
-        $.fn.formSerialize = function (formdate, callback) {
-            var $form = $(this);
-            if (!!formdate) {
-                for (var key in formdate) {
-                    var $field = $form.find("[name=" + key + "]");
-                    if ($field.length == 0) {
-                        continue;
-                    }
-                    var value = $.trim(formdate[key]);
-                    var type = $field.attr('type');
-                    if ($field.hasClass('select2')) {
-                        type = "select2";
-                    }
-                    switch (type) {
-                        case "checkbox":
-                            value == "true" ? $field.attr("checked", 'checked') : $field.removeAttr("checked");
-                            break;
-                        case "select2":
-                            if (!$field[0].multiple) {
-                                $field.select2().val(value).trigger("change");
-                            } else {
-                                var values = value.split(',');
-                                $field.select2().val(values).trigger("change");
-                            }
-                            break;
-                        case "radio":
-                            $field.each(function (index, $item) {
-                                if ($item.value == value) {
-                                    $item.checked = true;
-                                }
-                            });
-                            break;
-                        default:
-                            $field.val(value);
-                            break;
-                    }
-
-                };
-                // 特殊的表单字段可以在回调函数中手动赋值。
-                if (callback && $.isFunction(callback)) {
-                    callback(formdate);
-                }
-                return false;
-            }
-            var postdata = {};
-            $form.find('input,select,textarea').each(function (r) {
-                var $this = $(this);
-                var id = $this.attr('id');
-                var type = $this.attr('type');
-                switch (type) {
-                    case "checkbox":
-                        postdata[id] = $this.is(":checked");
-                        break;
-                    default:
-                        var value = $this.val() == "" ? "&nbsp;" : $this.val();
-                        if (!$.getQueryString("id")) {
-                            value = value.replace(/&nbsp;/g, '');
-                        }
-                        postdata[id] = value;
-                        break;
-                }
-            });
-            //if ($('[name=__RequestVerificationToken]').length > 0) {
-            //    postdata["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
-            //}
-            return postdata;
-        }
-
-
-    });
-
-</script>
+</div>
