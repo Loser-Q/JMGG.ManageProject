@@ -75,5 +75,62 @@ namespace JMGG.ManageProject.DataAccess
             }
             return list;
         }
+
+        /// <summary>
+        /// 计划报表信息excel查询
+        /// </summary>
+        /// <returns></returns>
+        public List<PlanReportEntity> QueryAdPlanReportExcel(PlanReportRequest request)
+        {
+            List<PlanReportEntity> list = new List<PlanReportEntity>();
+            StringBuilder sq = new StringBuilder();
+            sq.Append(" select * from ( ");
+            sq.Append(" select {2} ");
+            sq.Append(" from dbo.tblPlanReport a with(nolock) ");
+            sq.Append(" where {0} ");
+            sq.Append(" ) c where {1} ");
+            DynamicParameters dp = new DynamicParameters();
+            string where_1 = " 1=1 ";
+
+            if (!request.IsAmdin)
+            {
+                where_1 += " and a.UserManageId=@UserManageId";
+                dp.Add("UserManageId", request.UserManageId, DbType.String);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.StartTime))
+            {
+                where_1 += " and a.LaunchDate>=@StartTime";
+                dp.Add("StartTime", Convert.ToDateTime(Convert.ToDateTime(request.StartTime).ToString("yyyy-MM-dd")), DbType.DateTime);
+            }
+            if (!string.IsNullOrWhiteSpace(request.EndTime))
+            {
+                where_1 += " and a.LaunchDate<@EndTime";
+                dp.Add("EndTime", Convert.ToDateTime(request.EndTime).AddDays(1), DbType.DateTime);
+            }
+            if (!string.IsNullOrWhiteSpace(request.NewAdPlanId))
+            {
+                where_1 += " and a.NewAdPlanId=@NewAdPlanId";
+                dp.Add("NewAdPlanId", request.NewAdPlanId, DbType.String);
+            }
+            if (!string.IsNullOrWhiteSpace(request.AdName))
+            {
+                where_1 += " and a.AdName=@AdName";
+                dp.Add("AdName", request.AdName, DbType.String);
+            }
+            if (!string.IsNullOrWhiteSpace(request.LaunchStatus))
+            {
+                where_1 += " and a.LaunchStatus=@LaunchStatus";
+                dp.Add("LaunchStatus", request.LaunchStatus, DbType.String);
+            }
+
+            string sql_list = string.Format(sq.ToString(), where_1, "1=1", "* ");
+          
+            using (IDbConnection conn = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))
+            {
+                list = conn.Query<PlanReportEntity>(sql_list, dp).ToList();
+            }
+            return list;
+        }
     }
 }

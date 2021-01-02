@@ -11,5 +11,7 @@ namespace JMGG.ManageProject.Model
         public bool result { get; set; }
 
         public string msg { get; set; }
+
+        public string fileUrl { get; set; }
     }
 }

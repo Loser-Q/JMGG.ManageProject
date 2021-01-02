@@ -32,13 +32,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label" style="width: 100px;">广告计划名称</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="AdName" class="layui-input" value="">
+                        <input type="text" name="AdName" id="AdName" class="layui-input" value="">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label" style="width: 100px;">广告计划ID</label>
                     <div class="layui-input-inline" style="width: 300px; margin-right: 57px;">
-                        <input type="text" name="NewAdPlanId" class="layui-input" value="@NewAdPlanId">
+                        <input type="text" name="NewAdPlanID" id="NewAdPlanID" class="layui-input" value="@NewAdPlanId">
                     </div>
                 </div>
             </div>
@@ -182,14 +182,14 @@
                     none: '暂无相关数据',
                 },
                 where: {
-                    ADName: $.trim($("#ADName").val()),
-                    NewAdPlanId: $.trim($("#NewAdPlanId").val()),
+                    AdName: $.trim($("#AdName").val()),
                     StartLaunchTime: $.trim($("#StartLaunchTime").val()),
                     EndLaunchTime: $.trim($("#EndLaunchTime").val()),
                     Status: $.trim($("#Status").val()),
                     ADPlanID: $.trim($("#ADPlanID").val()),
                     NewAdPlanID: $.trim($("#NewAdPlanID").val()),
-                    IsAmdin: IsAmdin
+                    IsAmdin: IsAmdin,
+                    LaunchStatus: $("#LaunchStatus").val()
                 },
                 defaultToolbar: [],
             })
@@ -202,16 +202,30 @@
                         curr: 1,
                     },
                     where: {
-                        ADName: $.trim($("#ADName").val()),
-                        NewAdPlanId: $.trim($("#NewAdPlanId").val()),
+                        AdName: $.trim($("#AdName").val()),
                         StartLaunchTime: $.trim($("#StartLaunchTime").val()),
                         EndLaunchTime: $.trim($("#EndLaunchTime").val()),
                         Status: $.trim($("#Status").val()),
                         ADPlanID: $.trim($("#ADPlanID").val()),
                         NewAdPlanID: $.trim($("#NewAdPlanID").val()),
-                        IsAmdin: IsAmdin
+                        IsAmdin: IsAmdin,
+                        LaunchStatus: $("#LaunchStatus").val()
                     },
                 })
+            })
+
+            //下载事件
+            form.on('submit(downLoad)', function (data) {
+                var loadIndex = layer.load();
+                $.post("/PlanReport/GetExcelExport", { AdName: $.trim($("#AdName").val()), StartLaunchTime: $.trim($("#StartLaunchTime").val()), EndLaunchTime: $.trim($("#EndLaunchTime").val()), Status: $.trim($("#Status").val()), ADPlanID: $.trim($("#ADPlanID").val()), NewAdPlanID: $.trim($("#NewAdPlanID").val()), IsAmdin: IsAmdin, LaunchStatus: $("#LaunchStatus").val() }, function (data) {
+                    layer.close(loadIndex);
+                    if (data != null && data.result) {
+                        layer.alert(data.msg);
+                        window.open(data.fileUrl);
+                    } else {
+                        layer.alert(data.msg);
+                    }  
+                }).error(function () { layer.close(loadIndex); });
             })
         });
     </script>
