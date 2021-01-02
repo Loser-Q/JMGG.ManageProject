@@ -123,8 +123,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdPlanLogController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BasicInfoController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobConfig\JobSchedluerController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -357,13 +359,14 @@
     <Content Include="Views\UserManage\UserManage.cshtml" />
     <Content Include="Views\JobSchedluer\Index.cshtml" />
     <Content Include="Views\BasicInfo\Index.cshtml" />
+    <Content Include="Views\Finance\Index.cshtml" />
+    <Content Include="Views\AdPlanLog\PlanLog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\JobManage\" />
     <Folder Include="Views\CreativePlan\" />
     <Folder Include="Views\Creative\" />
-    <Folder Include="Views\FinancialInfo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

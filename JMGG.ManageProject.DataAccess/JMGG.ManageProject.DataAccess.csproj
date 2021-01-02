@@ -45,8 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceQuery.cs" />
+    <Compile Include="AdPlanLogCMD.cs" />
+    <Compile Include="AdPlanLogQuery.cs" />
     <Compile Include="BasicInfo\BasicInfoQuery.cs" />
     <Compile Include="DBConnectionStringConfig.cs" />
+    <Compile Include="FinanceInfoQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfigDB.cs" />
     <Compile Include="SchedulerConfigQuery.cs" />

@@ -76,6 +76,8 @@ namespace JMGG.ManageProject.Model.User
 
     public class LoginInfo
     {
+        public int UserManageID { get; set; }
+
         public string UserName { get; set; }
 
         public string CompanyName { get; set; }

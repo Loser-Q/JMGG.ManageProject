@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "财务信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<blockquote class="layui-elem-quote blog-manage-breadcrumb" style="margin-top: 5px;">
+    <span class="layui-breadcrumb">
+        <a>财务</a>
+        <a href="@Url.Action("Index", "Finance")"><cite>财务信息</cite></a>
+    </span>
+</blockquote>
+
+<div style="margin-bottom:30px;overflow:hidden;">
+    <span class="layui-btn" style="float:left;width:180px;">总余额：@ViewBag.TotalBalanceAmount</span>
+</div>
+
+<div class="layui-row" style="padding-left: 5px;">
+    <div class="demoTable">
+        开始日期：
+        <div class="layui-inline">
+            <input class="layui-input" name="startTime" id="startTime" autocomplete="off" placeholder="yyyy-MM-dd">
+        </div>
+        结束日期：
+        <div class="layui-inline">
+            <input class="layui-input" name="endTime" id="endTime" autocomplete="off" placeholder="yyyy-MM-dd">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+
+    <div class="layui-col-md12">
+        <table id="tblUser" lay-filter="tblUser"></table>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        layui.use(['laydate', 'table', 'layer'], function () {
+            var $ = layui.jquery;
+            var laydate = layui.laydate;
+            var table = layui.table;
+            var layer = layui.layer;
+
+            //日期范围选择
+            laydate.render({
+                elem: '#startTime',
+                value: GetDay(30)
+            });
+            laydate.render({
+                elem: '#endTime',
+                value: GetDay(0)
+            });
+
+            function GetDay(n) {
+                var n = n;
+                var d = new Date();
+                var year = d.getFullYear();
+                var mon = d.getMonth() + 1;
+                var day = d.getDate();
+                if (day <= n) {
+                    if (mon > 1) {
+                        mon = mon - 1;
+                    }
+                    else {
+                        year = year - 1;
+                        mon = 12;
+                    }
+                }
+                d.setDate(d.getDate() - n);
+                year = d.getFullYear();
+                mon = d.getMonth() + 1;
+                day = d.getDate();
+                s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);
+                return s;
+            }
+
+            //表格加载
+            table.render({
+                elem: '#tblUser'
+                , url: '/Finance/GetFinanceList' //数据接口
+                , page: true //开启分页
+                //, toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                , defaultToolbar: []
+                , title: '财务信息表'
+                , limit: 10   //一页能够显示的最大数目
+                , limits: [10, 15, 20]
+                , method: 'post'  //提交方式
+                , cols: [[ //表头
+                    , { field: 'BussinessID', title: '日期', width: 200, sort: false }
+                    , { field: 'NewDepositMoney', title: '存入(元)', width: 200, sort: false }
+                    , { field: 'NewDayBalance', title: '日终结余(元)', width: 200, sort: false }
+                ]]
+                , id: 'testReload'
+                , where: {
+                    startTime: $.trim($('#startTime').val()),
+                    endTime: $.trim($('#endTime').val())
+                }
+            });
+
+            //查询事件
+            var $ = layui.$, active = {
+                reload: function () {
+                    var startTime = $('#startTime');
+                    var endTime = $('#endTime');
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            startTime: $.trim(startTime.val()),
+                            endTime: $.trim(endTime.val())
+                        }
+                    }, 'data');
+                }
+            };
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+            //设置菜单选中样式
+            var $item = $('.layui-nav > .layui-nav-item .layui-nav-child').children();
+            $.each($item, function (i, val) {
+                if ($(this).find("a").text() == "用户管理")
+                    $(this).addClass('layui-this');
+                else
+                    $(this).removeClass('layui-this');
+            });
+        });
+    </script>
+}
+
+
+

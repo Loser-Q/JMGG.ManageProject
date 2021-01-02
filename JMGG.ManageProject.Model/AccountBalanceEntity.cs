@@ -29,6 +29,15 @@ namespace JMGG.ManageProject.Model
         public string NewAccountTotalBalance { get; set; }
 
         public string NewAccountConsumeBalance { get; set; }
+        /// <summary>
+        ///总余额 财务页面使用 抓取的数据
+        /// </summary>
+        public string FinanceTotalBanalceAmount { get; set; }
+
+        /// <summary>
+        ///处理过的总余额 财务页面使用 
+        /// </summary>
+        public string NewFinanceTotalBanalceAmount { get; set; }
 
         public string CreateTime { get; set; }
     }

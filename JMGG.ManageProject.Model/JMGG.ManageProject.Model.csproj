@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBalanceEntity.cs" />
+    <Compile Include="AdPlanyLogEntity.cs" />
     <Compile Include="AdvertisingPlanEntity.cs" />
     <Compile Include="BaseResponse.cs" />
     <Compile Include="BasicInfo\BasicInfoEntity.cs" />

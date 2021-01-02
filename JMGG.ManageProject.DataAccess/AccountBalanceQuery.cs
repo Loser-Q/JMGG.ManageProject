@@ -14,7 +14,7 @@ namespace JMGG.ManageProject.DataAccess
     {
         public AccountBalanceEntity QueryBalanceByUserId(AccountBalanceEntity request)
         {
-            string sql = " select [Id],[UserId],[UserName],[BusinessId],[AccountTotalBalance],[AccountConsumeBalance],[NewAccountTotalBalance],[NewAccountConsumeBalance],[CreateTime] from [dbo].[tblAccountBalance] where BusinessId = @BusinessId and UserName = @UserName ";
+            string sql = " select [Id],[UserId],[UserName],[BusinessId],[AccountTotalBalance],[AccountConsumeBalance],[NewAccountTotalBalance],[NewAccountConsumeBalance],[CreateTime],FinanceTotalBanalceAmount,NewFinanceTotalBanalceAmount from [dbo].[tblAccountBalance] where BusinessId = @BusinessId and UserName = @UserName ";
             using (IDbConnection conn = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))
             {
                 return conn.Query<AccountBalanceEntity>(sql, request).FirstOrDefault();

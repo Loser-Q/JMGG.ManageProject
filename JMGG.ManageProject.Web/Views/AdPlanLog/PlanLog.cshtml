@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+    var BusinessPlanId = ViewBag.BusinessPlanId;
+    var AdPlanId = ViewBag.AdPlanId;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>广告计划日志</title>
+    <script src="~/Scripts/jquery/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-template/jquery.tmpl.min.js"></script>
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script type="text/javascript">
+
+        layui.use(['laydate', 'table', 'layer'], function () {
+            var $ = layui.jquery;
+            var laydate = layui.laydate;
+            var table = layui.table;
+            var layer = layui.layer;
+
+            //表格加载
+            table.render({
+                elem: '#tblUser'
+                , url: '/AdPlanLog/GetADPlanList' //数据接口
+                , page: true //开启分页
+                //, toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                , defaultToolbar: []
+                , title: '操作信息表'
+                , limit: 10   //一页能够显示的最大数目
+                , limits: [10, 15, 20]
+                , method: 'post'  //提交方式
+                , cols: [[ //表头
+                    , { field: 'BussinessID', title: '商家计划ID', width: 150, sort: false }
+                    , { field: 'ADPlanID', title: '广告计划ID', width: 160, sort: false }
+                    , { field: 'ADName', title: '名称', width: 1800, sort: false }
+                    , { field: 'BillingMethod', title: '计费方式', width: 150, sort: false }
+                    , { field: 'OperationType', title: '操作类型', width: 150, sort: false }
+                    , { field: 'OldJson', title: '操作前', width: 200, sort: false }
+                    , { field: 'NewJson', title: '操作后', width: 200, sort: false }
+                    , { field: 'CreateTimeStr', title: '操作时间', width: 180, sort: false }
+                ]]
+                , id: 'testReload'
+                , where: {
+                    businessPlanId: '@BusinessPlanIdBusinessPlanId',
+                    adPlanId:'@AdPlanIdAdPlanId'
+                }
+            });
+
+            ////查询事件
+            //var $ = layui.$, active = {
+            //    reload: function () {
+            //        var startTime = $('#startTime');
+            //        var endTime = $('#endTime');
+            //        //执行重载
+            //        table.reload('testReload', {
+            //            page: {
+            //                curr: 1 //重新从第 1 页开始
+            //            }
+            //            , where: {
+            //                startTime: $.trim(startTime.val()),
+            //                endTime: $.trim(endTime.val())
+            //            }
+            //        }, 'data');
+            //    }
+            //};
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="layui-row" style="padding-left: 5px;">
+        <div class="layui-col-md12">
+            <table id="tblUser" lay-filter="tblUser"></table>
+        </div>
+    </div>
+</body>
+</html>

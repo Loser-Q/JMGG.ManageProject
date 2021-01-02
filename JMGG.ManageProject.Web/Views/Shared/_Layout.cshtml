@@ -34,7 +34,7 @@
                     <li class="layui-nav-item">
                         <a href="javascript:void(0);">财务</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="/Home/Index">财务信息</a></dd>
+                            <dd><a href="/Finance/Index">财务信息</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -59,7 +59,15 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="http://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img"> @ViewBag.UserLoginName
+                        <img src="http://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+                        @if (string.IsNullOrEmpty(ViewBag.UserLoginName) && ViewBag.IsAdmin)
+                        {
+                            <span>管理员</span>
+                        }
+                        else
+                        {
+                            @ViewBag.UserLoginName
+                        }
                     </a>
                 </li>
             </ul>

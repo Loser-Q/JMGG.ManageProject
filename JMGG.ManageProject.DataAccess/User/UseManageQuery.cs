@@ -30,7 +30,7 @@ namespace JMGG.ManageProject.DataAccess.User
             string where_1 = " 1=1 ";
             if (!string.IsNullOrWhiteSpace(request.UserName))
             {
-                where_1 += " and a.UserName==@UserName";
+                where_1 += " and a.UserName=@UserName";
                 dp.Add("UserName", request.UserName, DbType.String);
             }
             if (!string.IsNullOrWhiteSpace(request.BussinessID))
