@@ -10,14 +10,15 @@ using System.Web.Mvc;
 namespace JMGG.ManageProject.Web.Controllers
 {
 
-    public class CreativePlanController : Controller
+    public class CreativePlanController : BaseController
     {
         private static readonly CreativePlanLogic CreativePlanLogic = new CreativePlanLogic();
 
         // GET: CreativePlan
         public ActionResult Index()
         {
-            ViewBag.IsAdmin = true;
+            ViewBag.IsAdmin = false;
+            ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
             return View("~/Views/CreativePlan/Index.cshtml");
         }
         /// <summary>

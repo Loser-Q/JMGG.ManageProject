@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace JMGG.ManageProject.Web.Controllers
 {
 
-    public class UploadController : Controller
+    public class UploadController : BaseController
     {
         public JsonResult Video(HttpPostedFileBase files)
         {

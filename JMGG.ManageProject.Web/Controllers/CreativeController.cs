@@ -10,19 +10,21 @@ using System.Web.Mvc;
 namespace JMGG.ManageProject.Web.Controllers
 {
 
-    public class CreativeController : Controller
+    public class CreativeController : BaseController
     {
         private static readonly CreativeLogic CreativeLogic = new CreativeLogic();
 
         // GET: CreativePlan
         public ActionResult Index()
         {
-            ViewBag.IsAdmin = true;
+            ViewBag.IsAdmin = false;
+            ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
             return View("~/Views/Creative/Index.cshtml");
         }
         public ActionResult From()
         {
-            ViewBag.IsAdmin = true;
+            ViewBag.IsAdmin = false;
+            ViewBag.UserLoginName = base.UserInfo.CompanyName + "[ID:" + base.UserInfo.BusinessID + "]";
             return View("~/Views/Creative/From.cshtml");
         }
         /// <summary>
