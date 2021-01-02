@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JMGG.ManageProject.Model.BasicInfo
+namespace JMGG.ManageProject.Model.CreativePlan
 {
     /// <summary>
     ///用户管理页面（后台配置使用）
     /// </summary>
-    public class BasicInfoEntity
+    public class CreativePlanEntity
     {
         public int Id { get; set; }
         /// <summary>
@@ -106,28 +106,31 @@ namespace JMGG.ManageProject.Model.BasicInfo
     /// <summary>
     /// 请求类
     /// </summary>
-    public class BasicInfoRequest
+    public class CreativePlanRequest
     {
-        public string BussinessID { get; set; }
+        public string ADName { get; set; }
 
-        public string UserName { get; set; }
+        public string BusinessPlanID { get; set; }
 
-        public string PassWord { get; set; }
+        public string startLaunchTime { get; set; }
+        public string endLaunchTime { get; set; }
+
+        public string Status { get; set; }
 
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
     }
 
-    public class BasicInfoPageResponse
+    public class CreativePlanPageResponse
     {
-        public BasicInfoPageResponse()
+        public CreativePlanPageResponse()
         {
             count = 0;
-            data = new List<BasicInfoEntity>();
+            data = new List<CreativePlanEntity>();
         }
 
-        public List<BasicInfoEntity> data { get; set; }
+        public List<CreativePlanEntity> data { get; set; }
 
         public int count { get; set; }
 

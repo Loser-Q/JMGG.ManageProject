@@ -10,15 +10,20 @@ using System.Web.Mvc;
 namespace JMGG.ManageProject.Web.Controllers
 {
 
-    public class BasicInfoController : Controller
+    public class CreativeController : Controller
     {
         private static readonly CreativeLogic CreativeLogic = new CreativeLogic();
 
         // GET: CreativePlan
+        public ActionResult Index()
+        {
+            ViewBag.IsAdmin = true;
+            return View("~/Views/Creative/Index.cshtml");
+        }
         public ActionResult From()
         {
             ViewBag.IsAdmin = true;
-            return View("~/Views/BasicInfo/From.cshtml");
+            return View("~/Views/Creative/From.cshtml");
         }
         /// <summary>
         /// 基础信息
