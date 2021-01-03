@@ -18,7 +18,7 @@
 
 <blockquote class="layui-elem-quote blog-manage-breadcrumb" style="margin-top: 5px;">
     <span class="layui-breadcrumb">
-        <a>广告计划管理</a>
+        <a>推广</a>
         <a href="@Url.Action("Index", "Creative")"><cite>广告计划列表</cite></a>
     </span>
 </blockquote>
@@ -85,17 +85,11 @@
         <div class="layui-card-body">
             <table id="LAY-CreativePlan" lay-filter="LAY-CreativePlan"></table>
             <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="start">开启</a>
+                <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="end">关闭</a>
                 <a class="layui-btn layui-btn-xs" lay-event="report">查看报表</a>
                 <a class="layui-btn layui-btn-xs" lay-event="detial" style="display:none;">查看详情</a>
                 <a class="layui-btn layui-btn-xs" lay-event="logs">操作记录</a>
-            </script>
-
-            <script type="text/html" id="statusTemp">
-                {{#  if(d.Switch==1){ }}
-                <input type="checkbox" name="Switch" lay-skin="switch" checked lay-text="开启|关闭" value={{ d.Switch}} lay-filter="status">
-                {{#  } else { }}
-                <input type="checkbox" name="Switch" lay-skin="switch" lay-text="开启|关闭" value={{ d.Switch} lay-filter="status" >
-                {{#  } }}
             </script>
         </div>
     </div>
@@ -131,8 +125,10 @@
         })
         //表格加载
         var cols = [[
-            { field: 'Switch', title: '开关', templet: '#statusTemp' }
+            { field: 'Id', title: 'Id', hide: true }
+            , { field: 'DraftId', title: 'DraftId', hide: true }
             , { field: 'NewAdPlanID', title: '广告计划ID', }
+            , { field: 'ADPlanID', title: '广告计划ID', hide: true }
             , { field: 'BusinessPlanID', title: '商家计划ID', }
             , { field: 'ADName', title: '名称', }
             , { field: 'DeliveryPoint', title: '投放点位', }
@@ -199,6 +195,56 @@
             } else if (obj.event === 'report') {
                 //报表
                 window.location.href = "/PlanReport/Index?NewAdPlanId=" + data.NewAdPlanID + "&IsAdmin=0";
+            } else if (obj.event == "start") {
+                if (data.Status == "2") {
+                    layer.msg('不支持开启广告计划，已是投放状态');
+                    return;
+                }
+                var indexload = layer.load();
+                //开启操作
+                $.ajax({
+                    url: '/CreativePlan/UpdateAdvertPlanStatus',
+                    type: 'POST',
+                    data: { planId: data.ADPlanID, operationType: 1, draft_id: data.DraftId, newPlanId: data.NewAdPlanID, id: data.Id },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        layer.close(indexload);
+                        if (data.result) {
+                            layer.alert(data.msg);
+                            window.reload();
+                        } else {
+                            layer.alert(data.msg);
+                        }
+                    }, error: function () {
+                        layer.close(indexload);
+                        layer.msg('提交异常');
+                    }
+                });
+            } else if (obj.event == "end") {
+                if (data.Status == "7") {
+                    layer.msg('不支持暂停广告计划，已是暂停状态');
+                    return;
+                }
+                var indexload = layer.load();
+                //关闭操作
+                $.ajax({
+                    url: '/CreativePlan/UpdateAdvertPlanStatus',
+                    type: 'POST',
+                    data: { planId: data.ADPlanID, operationType: 2, draft_id: data.DraftId, newPlanId: data.NewAdPlanID, id: data.Id },
+                    dataType: 'JSON',
+                    success: function (data) {
+                        layer.close(indexload);
+                        if (data.result) {
+                            layer.alert(data.msg);
+                            window.location.reload();
+                        } else {
+                            layer.alert(data.msg);
+                        }
+                    }, error: function () {
+                        layer.close(indexload);
+                        layer.msg('提交异常');
+                    }
+                });
             }
         });
     });

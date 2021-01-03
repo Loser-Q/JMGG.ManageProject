@@ -80,8 +80,9 @@ namespace JMGG.ManageProject.Model.CreativePlan
         /// 投放时段
         /// </summary>
         public string LaunchTime { get; set; }
+        
         /// <summary>
-        /// 状态
+        /// 状态 1：待投放 2：投放中3：已结束4：等待审核中 5;未通过审核 6;待提交审核 7:已暂停
         /// </summary>
         public string Status { get; set; }
         /// <summary>

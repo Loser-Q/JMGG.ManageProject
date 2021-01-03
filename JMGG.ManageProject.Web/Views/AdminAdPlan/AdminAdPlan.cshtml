@@ -219,6 +219,9 @@
                 , { field: 'LaunchTime', title: '投放时段', }
                 , { field: 'Status', title: '状态', templet: function (d) { if (d.Status == 1) { return '待投放' } if (d.Status == 2) { return '投放中' } if (d.Status == 3) { return '已结束' } if (d.Status == 4) { return '等待审核中' } if (d.Status == 5) { return '未通过审核' } if (d.Status == 6) { return '待提交审核' } if (d.Status == 7) { return '已暂停' } } }
                 , { field: 'ApprovalReason', title: '审核原因', }
+                , {
+                    field: 'SourceType', title: '来源', templet: function (d) { if (d.Status == 1) { return '原系统抓取' } if (d.Status == 2) { return '用户新增' } }
+                }
                 , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 300 }
             ]]
             var tableIns = table.render({
@@ -280,7 +283,7 @@
                     form.val("formuserinfo", data);
                 } else if (obj.event === 'report') {
                     //报表
-                    window.location.href = "/PlanReport/Index?NewAdPlanId=" + data.NewAdPlanID +"&IsAdmin=1";
+                    window.location.href = "/PlanReport/Index?NewAdPlanId=" + data.NewAdPlanID + "&IsAdmin=1";
                 }
             });
 

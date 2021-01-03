@@ -26,5 +26,15 @@ namespace JMGG.ManageProject.DataAccess.CreativePlan
                 return connection.Execute(strSql.ToString(), entity) > 0;
             }
         }
+
+        public bool UpdateAdPlanBySwitch(CreativePlanEntity entity)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update [dbo].[tblAdvertisingPlan] set Switch=@Switch,Status=@Status where Id = @Id ");
+            using (IDbConnection connection = new SqlConnection(DBConnectionStringConfig.Default.JMGGConnectionString))
+            {
+                return connection.Execute(strSql.ToString(), entity) > 0;
+            }
+        }
     }
 }

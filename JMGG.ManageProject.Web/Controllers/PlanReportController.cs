@@ -144,7 +144,7 @@ namespace JMGG.ManageProject.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogWriter.error($"下载excel异常，请联联系管理员处理！");
+                LogWriter.error($"下载excel异常，{ex.ToString() + ex.StackTrace}");
                 return Json(new BaseResponse { result = false, msg = "下载异常，请联系管理员处理" });
             }
         }

@@ -1,9 +1,11 @@
 ﻿using JMGG.ManageProject.Business;
 using JMGG.ManageProject.Common;
+using JMGG.ManageProject.Model;
 using JMGG.ManageProject.Model.CreativePlan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +15,7 @@ namespace JMGG.ManageProject.Web.Controllers
     public class CreativePlanController : BaseController
     {
         private static readonly CreativePlanLogic CreativePlanLogic = new CreativePlanLogic();
+        private static readonly AdPlanLogLogic adPlanLog = new AdPlanLogLogic();
 
         // GET: CreativePlan
         public ActionResult Index()
@@ -76,5 +79,76 @@ namespace JMGG.ManageProject.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 更新广告状态
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult UpdateAdvertPlanStatus()
+        {
+            var isError = false;
+            StringBuilder strLog = new StringBuilder();
+            strLog.Append($"UpdateAdvertPlanStatus=>更新广告状态\r\n");
+            try
+            {
+                //调用接口方法使用
+                var planId = Request["planId"] ?? "";
+                var draft_id = Request["draft_id"] ?? "";
+                //本地使用
+                var newPlanId = Request["newPlanId"] ?? "";
+                var id = Request["id"] ?? "0";
+                var operationType = Request["operationType"] ?? "";  //操作类型 1：开 2：关
+                strLog.Append($"参数:原计划ID：{planId},draft_id:{draft_id},newPlanId:{newPlanId},id:{id},operationType:{operationType}\r\n");
+                if (string.IsNullOrWhiteSpace(planId) || string.IsNullOrWhiteSpace(draft_id))
+                {
+                    return Json(new { result = false, msg = "暂时无法更新广告状态，请联系管理员操作！" });
+                }
+                //调用接口方法
+
+
+                //更新本地数据库状态
+                var resUpdate = CreativePlanLogic.UpdateAdPlanBySwitch(new CreativePlanEntity
+                {
+                    Id = Convert.ToInt32(id),
+                    Switch = operationType == "1" ? "1" : "2",
+                    Status = operationType == "1" ? "2" : "7"
+                });
+                strLog.Append($"更新广告状态:{resUpdate}\r\n");
+
+                //查询广告信息
+                var planEntity = CreativePlanLogic.QueryCreativePlanById(Convert.ToInt32(id));
+                var updateLog = operationType == "1" ? "开启广告计划" : "关闭广告计划";
+                //插入日志
+                var logRes = adPlanLog.InsertAdPlanLog(new AdPlanyLogEntity
+                {
+                    UserMangeId = base.UserInfo.UserManageID,
+                    UserName = base.UserInfo.UserName,
+                    BusinessId = base.UserInfo.BusinessID,
+                    BusinessPlanID = planEntity.BusinessPlanID,
+                    ADPlanID = planEntity.NewAdPlanID,
+                    ADName = planEntity.ADName,
+                    BillingMethod = planEntity.BillingMethod,
+                    OperationType = "修改",
+                    CreateUser = base.UserInfo.UserName,
+                    OldJson = $"状态:{(operationType == "1" ? "关" : "开")}",
+                    NewJson = $"状态:{(operationType == "1" ? "开" : "关")}"
+                });
+                strLog.Append($"更新广告状态日志:{logRes}\r\n");
+
+                return Json(new { msg = "", result = false });
+            }
+            catch (Exception ex)
+            {
+                isError = true;
+                strLog.Append($"异常:{ex.ToString() + ex.StackTrace}");
+                return Json(new { msg = "异常，请联系管理员处理", result = false });
+            }
+            finally
+            {
+                if (isError)
+                    LogWriter.error(strLog.ToString());
+                else
+                    LogWriter.info(strLog.ToString());
+            }
+        }
     }
 }

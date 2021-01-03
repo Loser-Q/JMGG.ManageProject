@@ -41,6 +41,11 @@ namespace JMGG.ManageProject.Business
             return CreativePlanCMD.UpdateAdPlanById(entity);
         }
 
+        public bool UpdateAdPlanBySwitch(CreativePlanEntity entity)
+        {
+            return CreativePlanCMD.UpdateAdPlanBySwitch(entity);
+        }
+
         public CreativePlanEntity QueryCreativePlanById(int id)
         {
             return CreativePlanQuery.QueryCreativePlanById(id);
