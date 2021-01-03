@@ -52,85 +52,53 @@
                 onselectstart="return false;">
                 <label class="layui-form-label"><em style="color: #ff111d;">*</em> 投放时段:
                 </label>
-
-                <div id="table_time_selected" class="table_time_selected">
-                    <input type="hidden" name="put_time_section" id="put_time_section" "="">
-                                <input type=" hidden" class="default_time_val" value="000000000000000000000000" "="">
-                            <table cellspacing=" 0" cellpadding="0" border="0" class="plug-timer-grid"
-                        onselectstart="return false" onselect="document.selection.empty()">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th colspan="12"><span class="layui-text">上午</span></th>
-                            <th colspan="12"><span class="layui-text">下午</span></th>
-                        </tr>
-                        <tr class="hour">
-                            <th><span style="color: #666;font-size: 10px">小时</span></th>
-                            <td colspan="1" hour="0">0</td>
-                            <td colspan="1" hour="1">1</td>
-                            <td colspan="1" hour="2">2</td>
-                            <td colspan="1" hour="3">3</td>
-                            <td colspan="1" hour="4">4</td>
-                            <td colspan="1" hour="5">5</td>
-                            <td colspan="1" hour="6">6</td>
-                            <td colspan="1" hour="7">7</td>
-                            <td colspan="1" hour="8">8</td>
-                            <td colspan="1" hour="9">9</td>
-                            <td colspan="1" hour="10">10</td>
-                            <td colspan="1" hour="11">11</td>
-                            <td colspan="1" hour="12">12</td>
-                            <td colspan="1" hour="13">13</td>
-                            <td colspan="1" hour="14">14</td>
-                            <td colspan="1" hour="15">15</td>
-                            <td colspan="1" hour="16">16</td>
-                            <td colspan="1" hour="17">17</td>
-                            <td colspan="1" hour="18">18</td>
-                            <td colspan="1" hour="19">19</td>
-                            <td colspan="1" hour="20">20</td>
-                            <td colspan="1" hour="21">21</td>
-                            <td colspan="1" hour="22">22</td>
-                            <td colspan="1" hour="23">23</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th week="1"><span style="color: #666;font-size: 10px">全选/取消</span></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                    </table><input class="focus" style="opacity: 0;">
-                    <div id="table_time_selected_time_seled"></div>
-                    <div id="table_time_selected_time_num" class="reda-add-box" style="margin-left:110px">
-                        <div class="reda-add-title">已选时间段<div class="reda-delete-all clear"
-                                style="cursor:pointer;margin-top: 1px">清空全部</div>
-                        </div>
-                        <ul id="selected_time_list" style="min-height:100px;height:auto;"></ul>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><em style="color: #ff111d;">*</em> 单日预算:</label>
+                <div class="layui-input-inline">
+                    <input autocomplete="off" type="text" name="single_day_budget" id="single_day_budget" value=""
+                        placeholder="请输入有效数字" lay-filter="single_day_budget" class="layui-input">
+                    <div style="color: red" id="expect_exposure"></div>
+                </div>
+                <div class="layui-form-mid ">元 （不支持小数)</div>
+            </div>
+            <div id="div_balance_type">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><em style="color: #ff111d;">*</em> 付费方式:</label>
+                    <div class="layui-input-block" id="balance_type">
+                        <input type="radio" name="balance_type" value="3" title="CPC(平均点击单价)" lay-filter="balance_type"
+                            checked="">
+                        <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                                class="layui-anim layui-icon"></i><span>CPC(平均点击单价)</span></div>
+                        <input type="radio" name="balance_type" value="1" title="CPM(每千次曝光)" lay-filter="balance_type">
+                        <div class="layui-unselect layui-form-radio"><i
+                                class="layui-anim layui-icon"></i><span>CPM(每千次曝光)</span></div>
                     </div>
                 </div>
-
+            </div>
+            <div id="div_cpc_input_price">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><em style="color: #ff111d;">*</em> 设置CPC出价:</label>
+                    <div class="layui-input-inline">
+                        <input autocomplete="off" type="text" name="cpc_input_price" value="" id="cpc_input_price"
+                            lay-filter="cpc_input_price" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">元/每次点击 （最多支持两位小数，最大可设置1000.00元）</div>
+                </div>
+            </div>
+            <div id="div_put_mode">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><em style="color: #ff111d;">*</em> 投放方式:</label>
+                    <div class="layui-input-inline" id="put_mode" style="width:auto;">
+                        <input type="radio" name="put_mode" value="0" title="加速投放" lay-filter="put_mode" checked="">
+                        <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                                class="layui-anim layui-icon"></i><span>加速投放</span></div>
+                        <input type="radio" name="put_mode" value="1" title="匀速投放" lay-filter="put_mode">
+                        <div class="layui-unselect layui-form-radio"><i
+                                class="layui-anim layui-icon"></i><span>匀速投放</span></div>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">注：系统自动以更加均匀的跑量方式，更高效的为您消耗预算</div>
+                </div>
             </div>
             <div class="layui-form-item">
 
@@ -141,7 +109,112 @@
                 <legend>用户定向</legend>
             </fieldset>
             <div class="layui-form-item">
+                <label class="layui-form-label">地域:</label>
 
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">网络:</label>
+                <div class="layui-input-block">
+                    <input type="hidden" value="">
+                    <input type="checkbox" lay-filter="network" name="dsp_content[network][]" value="0" checked=""
+                        title="不限">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>不限</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="network" name="dsp_content[network][]" value="1" title="WIFI">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>WIFI</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="network" name="dsp_content[network][]" value="5" title="移动网络">
+                    <div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin=""><span>移动网络</span><i
+                            class="layui-icon"></i></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">投放目标:</label>
+                <div class="layui-input-block" id="deliver_target_mobile_box"><input type="checkbox" value="1"
+                        title="iPhone" lay-filter="deliver_target_mobile" name="dsp_content[deliver_target][]">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>iPhone</span><i
+                            class="layui-icon"></i></div><input type="checkbox" checked="checked" value="2"
+                        title="Android" lay-filter="deliver_target_mobile" name="dsp_content[deliver_target][]">
+                    <div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="">
+                        <span>Android</span><i class="layui-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="selectCity layui-form-item" id="appaction">
+                <label class="layui-form-label">APP行为:</label>
+                <div id="action1" class="action layui-btn layui-btn-primary app-type btnactive"
+                    onclick="checkApp(this,'no')" style="border: 1px solid rgb(201, 201, 201);">不限</div>
+                <div id="action2" class="action layui-btn layui-btn-primary app-type" onclick="checkApp(this,'allow')"
+                    style="border: 1px solid rgb(201, 201, 201);">指定APP</div>
+                <div id="action3" class="action layui-btn layui-btn-primary app-type" onclick="checkApp(this,'ban')"
+                    style="border: 1px solid rgb(201, 201, 201);">排除APP</div>
+                <div id="action4" class="action layui-btn layui-btn-primary app-type"
+                    onclick="checkApp(this,'both_assign')" style="border: 1px solid rgb(201, 201, 201);">同时定向排除</div>
+                <div class="layui-btn layui-btn-primary app-type" onclick="pop_upload()" style="display:none;">上传App
+                </div>
+                <input type="hidden" id="appType" name="dsp_content[app_conf]" value="no">
+                <div class="layui-form-mid layui-word-aux" style="float:none;display:inline-block;margin-left:10px">
+                    注：APP行为定向只对投放android生效</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别:</label>
+                <div class="layui-input-block">
+                    <input type="radio" lay-filter="deliver_target" name="dsp_content[dsp_content_gender]" value="0"
+                        checked="checked" title="不限">
+                    <div class="layui-unselect layui-form-radio layui-form-radioed"><i
+                            class="layui-anim layui-icon"></i><span>不限</span></div>
+                    <input type="radio" lay-filter="deliver_target" name="dsp_content[dsp_content_gender]" value="1"
+                        title="男">
+                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>男</span>
+                    </div>
+                    <input type="radio" lay-filter="deliver_target" name="dsp_content[dsp_content_gender]" value="2"
+                        title="女">
+                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>女</span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age]" value=""
+                        checked="checked" title="不限">
+                    <div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin=""><span>不限</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age][]"
+                        value="10-18" title="<18">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>&lt;18</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age][]"
+                        value="18-23" title="18-23">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>18-23</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age][]"
+                        value="24-30" title="24-30">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>24-30</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age][]"
+                        value="31-40" title="31-40">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>31-40</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age][]"
+                        value="41-50" title="41-50">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>41-50</span><i
+                            class="layui-icon"></i></div>
+                    <input type="checkbox" lay-filter="deliver_target_age" name="dsp_content[dsp_content_age][]"
+                        value="50-65" title="50+">
+                    <div class="layui-unselect layui-form-checkbox" lay-skin=""><span>50+</span><i
+                            class="layui-icon"></i></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机厂商:</label>
+                <div class="layui-input-block">
+                    <div id="dsp-phone-unlimit" class="action layui-btn layui-btn-primary firm-type  btnactive"
+                        style="border: 1px solid rgb(201, 201, 201);">不限</div>
+                    <div id="dsp-phone-limit" class="action layui-btn layui-btn-primary firm-type"
+                        style="border: 1px solid rgb(201, 201, 201);">指定</div>
+                    <input type="hidden" id="phone_firm_conf" name="dsp_content[phone_firm_conf]" value="no">
+                </div>
             </div>
             <div class="layui-form-item">
 
@@ -152,7 +225,59 @@
                 <legend>素材上传</legend>
             </fieldset>
             <div class="layui-form-item">
-
+                <label class="layui-form-label"><em style="color: #ff111d;">*</em>广告标题:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="material_content[name]" placeholder="输入有效名称" class="layui-input" value="">
+                </div>
+                <div class="layui-form-mid layui-word-aux">30个字</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><em style="color: #ff111d;">*</em>广告介绍:</label>
+                <div class="layui-input-inline">
+                    <textarea name="material_content[desc]" placeholder="请输入介绍内容" class="layui-textarea"></textarea>
+                </div>
+                <div class="layui-form-mid layui-word-aux">100个字</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><em style="color: #ff111d;">*</em>Logo图片:</label>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn upload_img" lay-data="{ }">
+                        <i class="layui-icon"></i>上传图片
+                    </button><input class="layui-upload-file" type="file" name="img">
+                </div>
+                <input type="hidden" name="material_content[logo]" class="img_url" value="">
+                <div class="layui-input-inline">
+                    <div class="preview"></div>
+                    <div class="layui-form-mid layui-word-aux">200*200 只支持png或jpg</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><em style="color: #ff111d;">*</em> 广告类型:</label>
+                <div class="layui-input-block">
+                    <input type="radio" lay-filter="choose_type" name="material_content[type]" value="download_app"
+                        title="APP下载">
+                    <div class="layui-unselect layui-form-radio"><i
+                            class="layui-anim layui-icon"></i><span>APP下载</span></div>
+                    <input type="radio" lay-filter="choose_type" name="material_content[type]" value="product"
+                        title="电商产品">
+                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>电商产品</span>
+                    </div>
+                    <input type="radio" lay-filter="choose_type" name="material_content[type]" value="activity"
+                        title="推广活动">
+                    <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><span>推广活动</span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">API监测链接:</label>
+                <div class="layui-input-block">
+                    <button type="button" id="api-add" class="layui-btn layui-btn-normal">新增链接</button>
+                    <button type="button" id="api-clear" class="layui-btn layui-btn-primary">清空链接</button>
+                </div>
+                <div class="layui-input-block" style="margin-top: 5px;">
+                    <input type="text" id="get_click_url" readonly="" name="material_content[get_click_url]" value=""
+                        placeholder="API监测链接" class="layui-input">
+                </div>
             </div>
             <div class="layui-form-item">
 
@@ -162,9 +287,15 @@
             <fieldset class="layui-elem-field layui-field-title">
                 <legend><a name="use">提交信息</a></legend>
             </fieldset>
-            <div class="layui-input-block">
-                <button type="button" lay-submit class="layui-btn" lay-filter="sub">保存</button>
-                <button type="button" lay-submit class="layui-btn" lay-filter="sub2">保存并提交</button>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="sub" value="1">
+                    <button type="button" class="layui-btn sub" id="button_save_hn">保存</button>
+                    <button type="button" class="layui-btn layui-btn-primary sub-pub"
+                        id="button_save_put_hn">保存并提交</button>
+                    <button type="button" class="layui-btn layui-btn-primary sub-pub-auto-hn" id="button_save_auto_hn"
+                        style="display: none;">立即投放</button>
+                </div>
             </div>
         </div>
     </div>
